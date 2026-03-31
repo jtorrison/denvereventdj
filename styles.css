@@ -159,12 +159,10 @@ nav {
   border-bottom: 1px solid var(--border);
 }
 
-.nav-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--text);
+.nav-logo {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 .nav-links { display: flex; align-items: center; gap: 1.75rem; }
@@ -210,10 +208,6 @@ nav {
   overflow: hidden;
 }
 
-/* 
-  Set your hero image here — replace assets/hero.jpg with your best 
-  full crowd / dance floor photo. Landscape, high energy.
-*/
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -262,7 +256,13 @@ nav {
   color: var(--text);
   margin-bottom: 1.75rem;
 }
-.hero h1 em { font-style: italic; color: var(--gold-lt); }
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold-lt);
+  display: inline-block;
+  transition: opacity 0.5s ease;
+}
+.hero h1 em.fade { opacity: 0; }
 
 .hero-sub {
   font-size: 0.88rem;
@@ -332,7 +332,7 @@ nav {
 .service-card {
   background: var(--bg);
   padding: 2.5rem 2rem;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s;
 }
 .service-card:hover { background: var(--surface); }
 
@@ -447,9 +447,7 @@ nav {
   background: var(--surface);
 }
 
-.venues-group {
-  margin-bottom: 3rem;
-}
+.venues-group { margin-bottom: 3rem; }
 .venues-group:last-child { margin-bottom: 0; }
 
 .venues-city {
