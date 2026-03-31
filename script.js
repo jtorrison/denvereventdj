@@ -16,3 +16,18 @@ function copyEmail() {
   btn.textContent = 'Copied!';
   setTimeout(() => btn.textContent = orig, 2000);
 }
+
+// Rotating hero text
+const rotatingTerms = ['Wedding DJ', 'Event DJ', 'Corporate DJ', 'Party DJ'];
+let termIndex = 0;
+const rotatingEl = document.querySelector('.rotating-text');
+if (rotatingEl) {
+  setInterval(() => {
+    rotatingEl.classList.add('fade');
+    setTimeout(() => {
+      termIndex = (termIndex + 1) % rotatingTerms.length;
+      rotatingEl.textContent = rotatingTerms[termIndex];
+      rotatingEl.classList.remove('fade');
+    }, 500);
+  }, 2800);
+}
