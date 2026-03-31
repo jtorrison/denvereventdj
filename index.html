@@ -75,7 +75,7 @@
         "@type": "Review",
         "reviewRating": { "@type": "Rating", "ratingValue": "5" },
         "author": { "@type": "Person", "name": "Wedding Client" },
-        "reviewBody": "Working with Josh was a dream come true. He was highly organized and went above and beyond to ensure our wedding day was perfect. His professionalism and dedication were evident in every aspect, from the initial planning stages to the very last song of the night."
+        "reviewBody": "Working with Josh was a dream come true. He was highly organized and went above and beyond to ensure our wedding day was perfect."
       }
     ]
   }
@@ -88,7 +88,7 @@
 </head>
 <body>
 
-  <!-- ── STICKY PHONE BAR (mobile conversion) ──── -->
+  <!-- ── PHONE BAR ──────────────────────────────── -->
   <div class="phone-bar">
     <span>Now booking 2026 &amp; 2027 weddings and events</span>
     <a href="tel:7204455369" class="phone-bar-cta">&#9742; Call or Text (720) 445-5369</a>
@@ -96,7 +96,9 @@
 
   <!-- ── NAV ──────────────────────────────────── -->
   <nav id="top">
-    <a href="#top" class="nav-brand">Denver Event DJ</a>
+    <a href="#top" class="nav-brand">
+      <img src="assets/logo-white.png" alt="Denver Event DJ" class="nav-logo" />
+    </a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#venues">Venues</a>
@@ -116,10 +118,7 @@
     <a href="#booking" onclick="toggleNav()">Get a Quote</a>
   </div>
 
-  <!-- ── HERO ─────────────────────────────────────
-    Save your best dance floor photo as assets/hero.jpg
-    Landscape, high res, full crowd energy shot works best
-  ─────────────────────────────────────────────── -->
+  <!-- ── HERO ────────────────────────────────────── -->
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -224,11 +223,12 @@
     </div>
   </section>
 
+  <!-- ── VENUES ─────────────────────────────────── -->
   <section id="venues">
     <div class="section-inner">
       <p class="section-eyebrow">Where We've Performed</p>
       <h2>Colorado Venues &amp; Beyond</h2>
-      <p class="section-sub">From Denver nightclubs to mountain weddings in Aspen and Evergreen — and events across the US, Europe, and beyond. If you have a venue in mind, we've probably played somewhere like it.</p>
+      <p class="section-sub">From Denver nightclubs to mountain weddings in Aspen and Evergreen — and events across the US, Europe, and beyond.</p>
 
       <div class="venues-group">
         <h3 class="venues-city">Denver Clubs &amp; Venues</h3>
@@ -266,7 +266,6 @@
           <li>Sanchez Wedding — Coeur d'Alene, ID</li>
         </ul>
       </div>
-
     </div>
   </section>
 
@@ -325,7 +324,6 @@
   <section id="about">
     <div class="section-inner about-inner">
       <div class="about-image">
-        <!-- Save Josh's purple-lit headshot as assets/josh.jpg -->
         <img src="assets/josh.jpg" alt="Josh Torrison – Denver wedding DJ and event DJ with 15+ years experience in Colorado" />
       </div>
       <div class="about-text">
@@ -335,6 +333,11 @@
         <p>I'm a music producer born and raised in Denver with a deep knowledge of music across every genre and era. I don't just play songs — I read the room, feel the energy, and make sure every moment lands exactly the way it should.</p>
         <p>Whether it's a wedding at a mountain lodge in Aspen, a corporate event downtown, or a birthday party that needs to go all night — I bring the same level of care and expertise to every single event.</p>
         <p class="about-sign">See you on the dancefloor!</p>
+        <div class="about-socials">
+          <a href="https://www.instagram.com/nosirrot/" target="_blank" rel="noopener" class="social-link">Instagram</a>
+          <a href="https://soundcloud.com/nosirrot" target="_blank" rel="noopener" class="social-link">SoundCloud</a>
+          <a href="https://open.spotify.com/artist/0yLWpIq0YZ3AjCQhjTNyEx" target="_blank" rel="noopener" class="social-link">Spotify</a>
+        </div>
         <a href="#booking" class="btn-primary">Book Josh for Your Event</a>
       </div>
     </div>
@@ -347,28 +350,20 @@
       <h2>Moments We've Created</h2>
       <p class="section-sub">Weddings, corporate events, private parties — from Denver to Aspen to around the world.</p>
       <div class="gallery-grid">
-        <!--
-          Upload photos to assets/ named event-1.jpg through event-9.jpg (or more)
-          Use specific alt text for SEO — mention venue name if you know it
-        -->
-        <img src="assets/event-1.jpg" alt="Denver wedding DJ at Colorado wedding reception" class="gallery-img" />
-        <img src="assets/event-2.jpg" alt="Wedding dance floor Denver Event DJ" class="gallery-img" />
-        <img src="assets/event-3.jpg" alt="Event lighting at Colorado wedding venue" class="gallery-img" />
-        <img src="assets/event-4.jpg" alt="Denver wedding DJ setup with uplighting" class="gallery-img" />
-        <img src="assets/event-5.jpg" alt="Guests dancing at Denver corporate event" class="gallery-img" />
-        <img src="assets/event-6.jpg" alt="Wedding reception first dance Denver Colorado" class="gallery-img" />
-        <img src="assets/event-7.jpg" alt="DJ Josh Torrison performing at Colorado event" class="gallery-img" />
-        <img src="assets/event-8.jpg" alt="Outdoor wedding DJ setup Colorado mountains" class="gallery-img" />
-        <img src="assets/event-9.jpg" alt="Denver wedding DJ crowd dancing reception" class="gallery-img" />
+        <img src="assets/event-1.jpg" alt="DJ Josh Torrison behind Pioneer DJ decks at Denver Colorado event" class="gallery-img" />
+        <img src="assets/event-2.jpg" alt="Wedding reception guests celebrating at Denver Colorado brick venue" class="gallery-img" />
+        <img src="assets/event-3.jpg" alt="Wedding guests dancing with pink uplighting at Colorado wedding reception" class="gallery-img" />
+        <img src="assets/event-4.jpg" alt="Black and white wedding dance floor with light trails Denver Colorado" class="gallery-img" />
+        <img src="assets/event-5.jpg" alt="Denver event DJ performing with colorful lighting at Colorado private event" class="gallery-img" />
+        <img src="assets/event-6.jpg" alt="Outdoor wedding reception dance floor with string lights Colorado" class="gallery-img" />
+        <img src="assets/event-7.jpg" alt="DJ setup with lighting rig at outdoor Colorado wedding" class="gallery-img" />
+        <img src="assets/event-8.jpg" alt="DJ Josh Torrison performing at Denver Colorado venue with Pioneer DJ" class="gallery-img" />
+        <img src="assets/event-9.jpg" alt="Denver Event DJ performing at private event worldwide" class="gallery-img" />
       </div>
     </div>
   </section>
 
-  <!-- ── BOOKING FORM ───────────────────────────────
-    Sign up free at formspree.io, create a form,
-    replace YOUR_FORM_ID in the action URL below.
-    Submissions go straight to your email.
-  ─────────────────────────────────────────────────── -->
+  <!-- ── BOOKING FORM ───────────────────────────── -->
   <section id="booking">
     <div class="section-inner">
       <p class="section-eyebrow">Let's Talk</p>
