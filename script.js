@@ -10,7 +10,7 @@ function toggleNav() {
 
 // Copy email to clipboard
 function copyEmail() {
-  navigator.clipboard.writeText('joshtorrison@gmail.com');
+  navigator.clipboard.writeText('josh@denvereventdj.com');
   const btn = event.target;
   const orig = btn.textContent;
   btn.textContent = 'Copied!';

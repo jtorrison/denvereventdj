@@ -21,6 +21,8 @@ for the full site plan — page map, build order, and open decisions.
 - Never publish the military/veteran discount. It applies only when a
   client raises it.
 - Legal name for anything formal: NOSIRROT LLC d/b/a DenverEventDJ.
+- Public contact email is `josh@denvereventdj.com`. Never publish Josh's
+  personal gmail address.
 - Keep private material out of the repo (contracts, event history notes,
   client contact details). The repo is public.
 - Raw photos and unpublished content go in `_inbox/` at the repo root.
