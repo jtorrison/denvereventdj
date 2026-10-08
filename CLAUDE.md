@@ -8,6 +8,12 @@ for the full site plan — page map, build order, and open decisions.
   `partials/header.html` and `partials/footer.html` — when you change the
   header or footer, update those files, then copy the change into every
   page's `<body>` by hand.
+- All CSS, JS, and image paths are root-relative (`/styles.css`,
+  `/script.js`, `/assets/...`), never page-relative (`assets/...`,
+  `../assets/...`). Pages live in subfolders (`/weddings/index.html`,
+  `/stories/boulder-flower-farm/index.html`, etc.) — a page-relative path
+  resolves differently depending on folder depth and breaks the moment a
+  page isn't at the repo root.
 - Voice: warm, casual, conversational, short paragraphs, no filler. Josh
   pulls copy back when it reads too promotional.
 - Service pages stay conversion-focused. Education goes in Guides and links
