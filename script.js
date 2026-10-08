@@ -10,12 +10,45 @@ function toggleNav() {
 
 // Copy email to clipboard
 function copyEmail() {
-  navigator.clipboard.writeText('joshtorrison@gmail.com');
+  navigator.clipboard.writeText('josh@denvereventdj.com');
   const btn = event.target;
   const orig = btn.textContent;
   btn.textContent = 'Copied!';
   setTimeout(() => btn.textContent = orig, 2000);
 }
+
+// GA4 event tracking — tag any element with data-ga-event="name" and it
+// fires automatically on click. Forms fire on submit instead of click.
+// Call links (tel:) and booking-tool links (calendly.com, cal.com,
+// calendar.google.com) are auto-tagged even without a data attribute.
+document.querySelectorAll('a[href^="tel:"]:not([data-ga-event])').forEach((a) => {
+  a.dataset.gaEvent = 'call_tap';
+});
+document.querySelectorAll('a[href*="calendly.com"]:not([data-ga-event]), a[href*="cal.com"]:not([data-ga-event]), a[href*="calendar.google.com"]:not([data-ga-event])').forEach((a) => {
+  a.dataset.gaEvent = 'book_a_call_click';
+});
+
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-ga-event]');
+  if (!el || el.tagName === 'FORM') return;
+  if (typeof gtag === 'function') {
+    gtag('event', el.dataset.gaEvent, {
+      event_category: 'engagement',
+      event_label: el.dataset.gaLabel || el.textContent.trim().slice(0, 100),
+    });
+  }
+});
+
+document.querySelectorAll('form').forEach((form) => {
+  form.addEventListener('submit', () => {
+    if (typeof gtag === 'function') {
+      gtag('event', form.dataset.gaEvent || 'form_submit', {
+        event_category: 'engagement',
+        event_label: form.dataset.gaLabel || form.id || 'form',
+      });
+    }
+  });
+});
 
 // Rotating hero text
 const rotatingTerms = ['Wedding DJ', 'Event DJ', 'Corporate DJ', 'Party DJ'];
