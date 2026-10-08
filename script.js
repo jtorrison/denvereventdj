@@ -19,10 +19,14 @@ function copyEmail() {
 
 // GA4 event tracking — tag any element with data-ga-event="name" and it
 // fires automatically on click. Forms fire on submit instead of click.
-// Call links (tel:) and booking-tool links (calendly.com, cal.com,
-// calendar.google.com) are auto-tagged even without a data attribute.
+// Call links (tel:), email links (mailto:), and booking-tool links
+// (calendly.com, cal.com, calendar.google.com) are auto-tagged even
+// without a data attribute.
 document.querySelectorAll('a[href^="tel:"]:not([data-ga-event])').forEach((a) => {
   a.dataset.gaEvent = 'call_tap';
+});
+document.querySelectorAll('a[href^="mailto:"]:not([data-ga-event])').forEach((a) => {
+  a.dataset.gaEvent = 'email_click';
 });
 document.querySelectorAll('a[href*="calendly.com"]:not([data-ga-event]), a[href*="cal.com"]:not([data-ga-event]), a[href*="calendar.google.com"]:not([data-ga-event])').forEach((a) => {
   a.dataset.gaEvent = 'book_a_call_click';
@@ -42,7 +46,7 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll('form').forEach((form) => {
   form.addEventListener('submit', () => {
     if (typeof gtag === 'function') {
-      gtag('event', form.dataset.gaEvent || 'form_submit', {
+      gtag('event', form.dataset.gaEvent || 'generate_lead', {
         event_category: 'engagement',
         event_label: form.dataset.gaLabel || form.id || 'form',
       });

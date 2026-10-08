@@ -444,7 +444,7 @@
       <p class="section-sub">Wondering what a wedding DJ costs in Denver? Fill out the form and we'll send availability and pricing within 24 hours. Or call/text us now at <a href="tel:7204455369">(720) 445-5369</a> — we're usually faster.</p>
 
       <div class="booking-inner">
-        <form class="booking-form" action="https://formspree.io/f/xjgprbne" method="POST" data-ga-event="form_submit" data-ga-label="booking_form">
+        <form class="booking-form" action="https://formspree.io/f/xjgprbne" method="POST" data-ga-event="generate_lead" data-ga-label="booking_form">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Your Name *</label>
@@ -498,6 +498,18 @@
                 <option value="6+">6+ hours</option>
               </select>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="referral-source">How did you hear about us?</label>
+            <select id="referral-source" name="referral_source">
+              <option value="">Select one (optional)</option>
+              <option value="google-search">Google search</option>
+              <option value="instagram">Instagram</option>
+              <option value="the-knot-weddingwire">The Knot / WeddingWire</option>
+              <option value="venue-planner-referral">Venue or planner referral</option>
+              <option value="friend-past-client">Friend or past client</option>
+              <option value="other">Other</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="message">Tell us about your event</label>
