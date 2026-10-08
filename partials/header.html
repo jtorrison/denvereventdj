@@ -1,0 +1,41 @@
+<!--
+  Shared header — canonical source. Copy this block verbatim into the
+  <body> of every page (right after <body>). If you edit the nav, phone
+  bar, or logo here, copy the change into every page by hand — see
+  CLAUDE.md.
+
+  Nav currently points at in-page anchors (#services, #about, etc.) because
+  the site is still one page (Phase 0). As Phase 1-3 pages are built per
+  docs/site-plan.md, swap these anchors for real page paths
+  (e.g. /weddings/, /pricing/, /about/) one at a time.
+-->
+
+<!-- ── PHONE BAR ──────────────────────────────── -->
+<div class="phone-bar">
+  <span>Now booking 2026 &amp; 2027 weddings and events</span>
+  <a href="tel:7204455369" class="phone-bar-cta" data-ga-event="call_tap" data-ga-label="phone_bar">&#9742; Call or Text (720) 445-5369</a>
+</div>
+
+<!-- ── NAV ──────────────────────────────────── -->
+<nav id="top">
+  <a href="#top" class="nav-brand">
+    <img src="assets/logo-white.png" alt="Denver Event DJ" class="nav-logo" />
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#venues">Venues</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#booking" class="btn-nav">Get a Quote</a>
+  </div>
+  <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">&#9776;</button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#services" onclick="toggleNav()">Services</a>
+  <a href="#venues" onclick="toggleNav()">Venues</a>
+  <a href="#reviews" onclick="toggleNav()">Reviews</a>
+  <a href="#about" onclick="toggleNav()">About</a>
+  <a href="#gallery" onclick="toggleNav()">Gallery</a>
+  <a href="#booking" onclick="toggleNav()">Get a Quote</a>
+</div>

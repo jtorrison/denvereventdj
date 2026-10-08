@@ -1,0 +1,10 @@
+# Raw photos and unpublished content — never published to the live site.
+# Drop new photos/videos/drafts here; process (resize + WebP) into assets/
+# before they're usable on a page.
+/_inbox/
+
+# Pre-WebP source images, kept locally for re-processing at a different
+# crop/quality. Not needed in the published repo.
+/assets/.originals/
+
+.DS_Store
