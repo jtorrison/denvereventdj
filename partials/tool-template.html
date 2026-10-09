@@ -1,0 +1,120 @@
+<!--
+  Tool page template — copy this file to tools/<slug>/index.html and fill
+  in every {{TOKEN}}. See CLAUDE.md "Publishing from _inbox" for the full
+  procedure.
+
+  Hard rule: the page must make sense with JavaScript OFF. The written
+  explanation, how-to, and FAQ below are real HTML content, not a
+  fallback message — write them as if there were no interactive part at
+  all. The interactive region is additive, not required for the page to
+  be useful. No signup. Instant result. One CTA.
+
+  {{TOKEN}} reference: TITLE, TITLE_TAG, META_DESCRIPTION, SLUG,
+  PUBLISHED_DATE, UPDATED_DATE, HERO_IMAGE, HERO_ALT — same meaning as the
+  story template.
+
+  Add a separate FAQPage JSON-LD block only if the FAQ section below is
+  actually visible on the page.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TITLE_TAG}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://denvereventdj.com/tools/{{SLUG}}/" />
+  <link rel="icon" href="/assets/favicon.png" />
+
+  <meta property="og:title" content="{{TITLE_TAG}}" />
+  <meta property="og:description" content="{{META_DESCRIPTION}}" />
+  <meta property="og:url" content="https://denvereventdj.com/tools/{{SLUG}}/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://denvereventdj.com{{HERO_IMAGE}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{TITLE_TAG}}" />
+  <meta name="twitter:description" content="{{META_DESCRIPTION}}" />
+  <meta name="twitter:image" content="https://denvereventdj.com{{HERO_IMAGE}}" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "{{TITLE}}",
+    "url": "https://denvereventdj.com/tools/{{SLUG}}/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://denvereventdj.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://denvereventdj.com/tools/" },
+      { "@type": "ListItem", "position": 3, "name": "{{TITLE}}", "item": "https://denvereventdj.com/tools/{{SLUG}}/" }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QXX13HK13B');
+  </script>
+</head>
+<body>
+
+  <!-- PARTIAL:HEADER -->
+  <!-- (filled by scripts/build.py from partials/header.html) -->
+  <!-- /PARTIAL:HEADER -->
+
+  <section>
+    <div class="section-inner">
+      <p class="section-eyebrow">Free Tool</p>
+      <h1>{{TITLE}}</h1>
+
+      <p class="section-sub">{{WRITTEN_EXPLANATION}}</p>
+
+      <h2>How It Works</h2>
+      <p class="section-sub">{{HOW_TO}}</p>
+
+      <!-- Interactive region — JS hooks in here only; everything above
+           and below must stand on its own with JS off -->
+      <div id="tool-interactive" class="aside-card" style="margin-bottom:2.5rem;">
+        <noscript>This tool needs JavaScript for the instant calculator —
+          everything else on this page works without it.</noscript>
+      </div>
+
+      <h2>FAQ</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <p class="faq-q">{{FAQ_QUESTION_1}}</p>
+          <p class="faq-a">{{FAQ_ANSWER_1}}</p>
+        </div>
+      </div>
+
+      <a href="/#booking" class="btn-primary">Check My Date</a>
+    </div>
+  </section>
+
+  <!-- PARTIAL:FOOTER -->
+  <!-- (filled by scripts/build.py from partials/footer.html) -->
+  <!-- /PARTIAL:FOOTER -->
+
+  <script src="/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- Tool-specific JS goes here, hooking into #tool-interactive only -->
+</body>
+</html>

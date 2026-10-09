@@ -1,0 +1,123 @@
+<!--
+  Story page template — copy this file to stories/<slug>/index.html and
+  fill in every {{TOKEN}}. See CLAUDE.md "Publishing from _inbox" for the
+  full procedure. Required sections, in order: the event, what changed or
+  went wrong, what Josh did, the result, photos, CTA — works short or
+  long, but keep this order.
+
+  {{TOKEN}} reference (from the _inbox front matter):
+    TITLE            display title (also used in schema "headline")
+    TITLE_TAG        <title> tag text, <=60 chars
+    META_DESCRIPTION <=155 chars
+    SLUG             URL slug, matches the folder name under stories/
+    PUBLISHED_DATE   YYYY-MM-DD, schema "datePublished"
+    UPDATED_DATE     YYYY-MM-DD, schema "dateModified" + visible "Updated" text
+                     (kept in sync by scripts/build.py from the single
+                     <!-- updated: YYYY-MM-DD --> marker below)
+    HERO_IMAGE       /assets/<file>.webp
+    HERO_ALT         descriptive alt text, never empty
+
+  After filling this in: run `python3 scripts/build.py`, then the full
+  checker suite, before pushing.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{TITLE_TAG}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://denvereventdj.com/stories/{{SLUG}}/" />
+  <link rel="icon" href="/assets/favicon.png" />
+
+  <meta property="og:title" content="{{TITLE_TAG}}" />
+  <meta property="og:description" content="{{META_DESCRIPTION}}" />
+  <meta property="og:url" content="https://denvereventdj.com/stories/{{SLUG}}/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://denvereventdj.com{{HERO_IMAGE}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{TITLE_TAG}}" />
+  <meta name="twitter:description" content="{{META_DESCRIPTION}}" />
+  <meta name="twitter:image" content="https://denvereventdj.com{{HERO_IMAGE}}" />
+
+  <!-- updated: {{UPDATED_DATE}} -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{TITLE}}",
+    "datePublished": "{{PUBLISHED_DATE}}",
+    "dateModified": "{{UPDATED_DATE}}",
+    "image": "https://denvereventdj.com{{HERO_IMAGE}}",
+    "author": { "@type": "Person", "name": "Josh Torrison" },
+    "publisher": { "@type": "Organization", "name": "Denver Event DJ" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://denvereventdj.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Stories", "item": "https://denvereventdj.com/stories/" },
+      { "@type": "ListItem", "position": 3, "name": "{{TITLE}}", "item": "https://denvereventdj.com/stories/{{SLUG}}/" }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QXX13HK13B');
+  </script>
+</head>
+<body>
+
+  <!-- PARTIAL:HEADER -->
+  <!-- (filled by scripts/build.py from partials/header.html) -->
+  <!-- /PARTIAL:HEADER -->
+
+  <section>
+    <div class="section-inner">
+      <p class="section-eyebrow">Real Event &nbsp;·&nbsp; Updated <span data-updated-text>{{UPDATED_MONTH_YEAR}}</span></p>
+      <h1>{{TITLE}}</h1>
+
+      <img src="{{HERO_IMAGE}}" alt="{{HERO_ALT}}" style="margin-bottom:2rem;max-width:100%;" />
+
+      <h2>The Event</h2>
+      <p class="section-sub">{{EVENT_DESCRIPTION}}</p>
+
+      <h2>What Changed</h2>
+      <p class="section-sub">{{WHAT_CHANGED}}</p>
+
+      <h2>What Josh Did</h2>
+      <p class="section-sub">{{WHAT_JOSH_DID}}</p>
+
+      <h2>The Result</h2>
+      <p class="section-sub">{{RESULT}}</p>
+
+      <div class="cards-grid" style="margin-bottom:3rem;">
+        <!-- additional photos, if any: <img src="/assets/..." alt="..." class="gallery-img" /> -->
+      </div>
+
+      <a href="/#booking" class="btn-primary">Check My Date</a>
+    </div>
+  </section>
+
+  <!-- PARTIAL:FOOTER -->
+  <!-- (filled by scripts/build.py from partials/footer.html) -->
+  <!-- /PARTIAL:FOOTER -->
+
+  <script src="/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

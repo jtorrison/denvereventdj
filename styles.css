@@ -74,7 +74,7 @@ section:not(.hero):not(.stats) { padding: 6rem 0; }
   margin-bottom: 1rem;
 }
 
-h2 {
+h1, h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
   font-weight: 400;
@@ -786,6 +786,64 @@ footer { border-top: 1px solid var(--border); }
   background: var(--surface);
   color: var(--text);
   border-left: 1px solid var(--border);
+}
+
+/* ── Error Page (404) ───────────────────────────── */
+.error-page {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2.5rem;
+}
+.error-page .error-code {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.error-page h1 { margin-bottom: 1rem; }
+.error-page p { color: var(--muted); max-width: 480px; margin-bottom: 2rem; }
+.error-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+/* ── Type Index Pages (stories/guides/tools) ────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.card-date {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.card p { font-size: 0.875rem; color: var(--muted); flex: 1; }
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-top: 3rem;
+  color: var(--muted);
+  border: 1px dashed var(--border);
 }
 
 /* ── Responsive ─────────────────────────────────── */

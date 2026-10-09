@@ -1,0 +1,8 @@
+# This repo has no Jekyll templating (no front matter, no Liquid) — every
+# page is already final static HTML. This file exists only to tell GitHub
+# Pages' default Jekyll build not to publish repo-maintenance files that
+# should stay visible on GitHub but never be fetchable on the live site.
+exclude:
+  - CLAUDE.md
+  - scripts
+  - partials

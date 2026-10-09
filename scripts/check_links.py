@@ -2,20 +2,29 @@
 """
 Link checker for the static site. Crawls every *.html file and verifies:
   - in-page anchor links (#id) resolve to an element with that id
-  - relative links resolve to a real file (honoring folder/index.html
-    GitHub Pages URLs, e.g. /weddings/ -> weddings/index.html)
+  - relative/root-relative links resolve to a real file (honoring
+    folder/index.html GitHub Pages URLs, e.g. /weddings/ -> weddings/index.html)
   - external http(s) links return a non-error status (best effort; a
     timeout or network hiccup is reported as a warning, not a failure)
+  - no internal <a> link ends in .html/index.html, and no folder-style
+    internal link is missing its trailing slash (assets, anchors, tel:,
+    mailto:, and external URLs are exempt)
+  - every page is listed in sitemap.xml and vice versa (noindex pages
+    exempt)
+  - no stray *.html file sits next to an index.html (every page is
+    <folder>/index.html, never <folder>/page.html) — root 404.html and
+    anything under partials/scripts/_inbox are exempt
 
 Links to paths listed in PLANNED_PAGES are reported as informational
-notices, not failures — docs/site-plan.md defines pages that don't exist
-yet and will land in a later phase.
+notices, not failures — _docs/site-plan.md (local, gitignored) defines
+pages that don't exist yet and will land in a later phase.
 
 Usage: python3 scripts/check_links.py
-Exit code is non-zero only on broken internal links or malformed anchors.
+Exit code is non-zero on any error (broken link, malformed anchor, bad
+URL shape, sitemap mismatch, or stray filename). Warnings/notices don't
+fail the build.
 """
 import html.parser
-import os
 import re
 import sys
 import urllib.error
@@ -23,24 +32,29 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+EXCLUDE_DIR_NAMES = {".git", ".github", "partials", "scripts", "_inbox", "_docs", "assets"}
 
-# Pages from docs/site-plan.md's page map that aren't built yet (Phase 1-3).
-# Referencing one of these today is expected, not a bug.
+# Pages from _docs/site-plan.md's page map that aren't built yet. Referencing
+# one of these today is expected, not a bug.
 PLANNED_PAGES = {
     "/weddings/", "/corporate-events/", "/parties/", "/pricing/", "/about/",
-    "/mixes/", "/reviews/", "/faq/", "/contact/", "/stories/", "/venues/",
+    "/mixes/", "/reviews/", "/faq/", "/contact/", "/venues/",
     "/venues/denver/", "/venues/mountain-weddings/", "/venues/outdoor-weddings/",
-    "/guides/", "/guides/choosing-a-wedding-dj/", "/guides/playlist-vs-live-dj/",
+    "/guides/choosing-a-wedding-dj/", "/guides/playlist-vs-live-dj/",
     "/privacy/",
 }
 
 SKIP_SCHEMES = ("mailto:", "tel:", "javascript:")
+ASSET_EXTENSIONS = (
+    ".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".ico",
+    ".xml", ".txt", ".pdf", ".json",
+)
 
 
 class LinkExtractor(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
-        self.links = []  # (tag, attr_value)
+        self.links = []  # (source_tag, attr, value)
         self.ids = set()
 
     def handle_starttag(self, tag, attrs):
@@ -48,13 +62,13 @@ class LinkExtractor(html.parser.HTMLParser):
         if "id" in attrs:
             self.ids.add(attrs["id"])
         if tag == "a" and attrs.get("href"):
-            self.links.append(("href", attrs["href"]))
+            self.links.append(("a", "href", attrs["href"]))
         if tag == "img" and attrs.get("src"):
-            self.links.append(("src", attrs["src"]))
+            self.links.append(("img", "src", attrs["src"]))
         if tag == "link" and attrs.get("href"):
-            self.links.append(("href", attrs["href"]))
+            self.links.append(("link", "href", attrs["href"]))
         if tag == "script" and attrs.get("src"):
-            self.links.append(("src", attrs["src"]))
+            self.links.append(("script", "src", attrs["src"]))
 
 
 def resolve_local_path(link, page_path):
@@ -68,13 +82,26 @@ def resolve_local_path(link, page_path):
     return candidate
 
 
+def check_url_shape(source_tag, path_only, rel, errors):
+    """No visitor-facing URL ever shows .html; folder links need a trailing slash."""
+    if source_tag != "a":
+        return  # only <a> links are "visitor-facing navigation"
+    if path_only.endswith(ASSET_EXTENSIONS):
+        return
+    if path_only.endswith(".html"):
+        errors.append(f"{rel}: internal link '{path_only}' ends in .html — use the trailing-slash folder form")
+        return
+    if not path_only.endswith("/"):
+        errors.append(f"{rel}: internal link '{path_only}' is missing its trailing slash")
+
+
 def check_file(page_path, external_checks, errors, warnings, notices):
     text = page_path.read_text(encoding="utf-8", errors="replace")
     parser = LinkExtractor()
     parser.feed(text)
     rel = page_path.relative_to(ROOT)
 
-    for kind, link in parser.links:
+    for source_tag, kind, link in parser.links:
         link = link.strip()
         if not link or link.startswith(SKIP_SCHEMES) or link.startswith("#"):
             if link.startswith("#") and len(link) > 1:
@@ -91,11 +118,13 @@ def check_file(page_path, external_checks, errors, warnings, notices):
 
         path_only = link.split("#")[0].split("?")[0]
         if not path_only:
-            continue
+            continue  # pure fragment, e.g. "/#booking" already handled via the "/" prefix below
 
         if path_only in PLANNED_PAGES:
-            notices.append(f"{rel}: links to planned page '{path_only}' (not built yet, see docs/site-plan.md)")
+            notices.append(f"{rel}: links to planned page '{path_only}' (not built yet, see _docs/site-plan.md)")
             continue
+
+        check_url_shape(source_tag, path_only, rel, errors)
 
         target = resolve_local_path(path_only, page_path)
         if not target.exists():
@@ -115,17 +144,73 @@ def check_external(url, rel, warnings):
         warnings.append(f"{rel}: could not verify external link {url} ({e})")
 
 
+def discover_pages():
+    pages = []
+    for path in sorted(ROOT.rglob("index.html")):
+        rel_parts = path.relative_to(ROOT).parts
+        if any(part in EXCLUDE_DIR_NAMES for part in rel_parts):
+            continue
+        pages.append(path)
+    not_found = ROOT / "404.html"
+    if not_found.exists():
+        pages.append(not_found)
+    return pages
+
+
+def url_for(page_path):
+    rel = page_path.relative_to(ROOT)
+    if rel.name == "404.html":
+        return None
+    if rel == Path("index.html"):
+        return "/"
+    return f"/{rel.parent.as_posix()}/"
+
+
+def check_sitemap_completeness(pages, errors):
+    sitemap_path = ROOT / "sitemap.xml"
+    sitemap_urls = set()
+    if sitemap_path.exists():
+        text = sitemap_path.read_text(encoding="utf-8")
+        for loc in re.findall(r"<loc>(.*?)</loc>", text):
+            sitemap_urls.add(loc.replace("https://denvereventdj.com", "") or "/")
+
+    page_urls = set()
+    for page in pages:
+        text = page.read_text(encoding="utf-8", errors="replace")
+        if re.search(r'<meta\s+name="robots"\s+content="noindex', text, re.IGNORECASE):
+            continue
+        url = url_for(page)
+        if url:
+            page_urls.add(url)
+
+    for url in sorted(page_urls - sitemap_urls):
+        errors.append(f"sitemap.xml: missing entry for {url} (run scripts/build.py)")
+    for url in sorted(sitemap_urls - page_urls):
+        errors.append(f"sitemap.xml: entry for {url} has no corresponding page")
+
+
+def check_stray_filenames(errors):
+    for path in sorted(ROOT.rglob("*.html")):
+        rel = path.relative_to(ROOT)
+        if any(part in EXCLUDE_DIR_NAMES for part in rel.parts):
+            continue
+        if rel.name == "index.html":
+            continue
+        if rel == Path("404.html"):
+            continue
+        errors.append(f"{rel}: stray .html file — pages must be <folder>/index.html, not a loose file")
+
+
 def main():
     external_checks = "--external" in sys.argv
-    html_files = sorted(ROOT.rglob("*.html"))
-    html_files = [
-        p for p in html_files
-        if "_inbox" not in p.parts and "node_modules" not in p.parts and "partials" not in p.parts
-    ]
+    pages = discover_pages()
 
     errors, warnings, notices = [], [], []
-    for page in html_files:
+    for page in pages:
         check_file(page, external_checks, errors, warnings, notices)
+
+    check_sitemap_completeness(pages, errors)
+    check_stray_filenames(errors)
 
     if notices:
         print(f"Notices ({len(notices)}):")
@@ -144,10 +229,10 @@ def main():
         for e in errors:
             print(f"  x  {e}")
         print()
-        print(f"FAILED: {len(errors)} broken link(s) across {len(html_files)} page(s).")
+        print(f"FAILED: {len(errors)} issue(s) across {len(pages)} page(s).")
         sys.exit(1)
 
-    print(f"OK: checked {len(html_files)} page(s), no broken internal links.")
+    print(f"OK: checked {len(pages)} page(s), no broken links or URL-shape issues.")
 
 
 if __name__ == "__main__":

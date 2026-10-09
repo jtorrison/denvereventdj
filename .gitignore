@@ -3,6 +3,11 @@
 # before they're usable on a page.
 /_inbox/
 
+# Business/planning docs and anything business-sensitive (pricing,
+# discounts, internal policy). Local reference only — never committed,
+# never in a public repo. See CLAUDE.md for the pointer.
+/_docs/
+
 # Pre-WebP source images, kept locally for re-processing at a different
 # crop/quality. Not needed in the published repo.
 /assets/.originals/
