@@ -90,7 +90,24 @@ def url_for(page_path):
 
 
 def git_lastmod(page_path):
+    """
+    Last-modified date for the sitemap. This script normally runs BEFORE
+    the commit that will actually land, so a plain `git log -1` would give
+    the *previous* commit's date locally, then disagree with CI's `git
+    log` once the new commit exists (CI checks out the finished commit,
+    where the file is no longer dirty) — permanent drift on every commit
+    that touches a sitemapped page. Dodge it: if the file has uncommitted
+    changes right now, it's about to be committed *today*, so use today's
+    date, matching what CI will see once that commit lands (same
+    calendar day). Only fall back to git history for untouched files.
+    """
     rel = page_path.relative_to(ROOT)
+    status = subprocess.run(
+        ["git", "status", "--porcelain", "--", str(rel)],
+        cwd=ROOT, capture_output=True, text=True, check=True,
+    ).stdout.strip()
+    if status:
+        return date.today().isoformat()
     try:
         out = subprocess.run(
             ["git", "log", "-1", "--format=%ad", "--date=short", "--", str(rel)],
