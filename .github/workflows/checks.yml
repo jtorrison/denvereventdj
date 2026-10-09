@@ -48,6 +48,18 @@ jobs:
             python3 scripts/ci_lighthouse_urls.py
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Build with Jekyll
+        # Lighthouse must test what GitHub Pages actually publishes, not
+        # the raw repo — _config.yml's Jekyll `exclude:` list keeps
+        # CLAUDE.md/scripts/partials off the live site, so build _site/
+        # here the same way Pages does and point Lighthouse at that,
+        # not at the repo root (which still has raw, unfilled templates).
+        run: |
+          gem install jekyll
+          jekyll build --source . --destination _site
       # TODO: once the Phase 1 redesign ships, flip categories:performance
       # in .lighthouserc.json from "warn" to "error" — see CLAUDE.md.
       - uses: treosh/lighthouse-ci-action@v12

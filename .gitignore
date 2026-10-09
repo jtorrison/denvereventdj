@@ -12,4 +12,8 @@
 # crop/quality. Not needed in the published repo.
 /assets/.originals/
 
+# Jekyll build output (CI builds this to test what GitHub Pages actually
+# publishes; never needed in the repo itself).
+/_site/
+
 .DS_Store
