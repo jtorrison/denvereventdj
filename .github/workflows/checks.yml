@@ -53,7 +53,6 @@ jobs:
       - uses: treosh/lighthouse-ci-action@v12
         with:
           urls: ${{ steps.urls.outputs.urls }}
-          staticDistDir: .
           configPath: ./.lighthouserc.json
 
   indexnow:
