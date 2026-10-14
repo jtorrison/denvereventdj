@@ -37,17 +37,16 @@ EXCLUDE_DIR_NAMES = {".git", ".github", "partials", "scripts", "_inbox", "_docs"
 # Pages from _docs/site-plan.md's page map that aren't built yet. Referencing
 # one of these today is expected, not a bug.
 PLANNED_PAGES = {
-    "/weddings/", "/corporate-events/", "/parties/", "/pricing/", "/about/",
-    "/mixes/", "/reviews/", "/faq/", "/contact/", "/venues/",
-    "/venues/denver/", "/venues/mountain-weddings/", "/venues/outdoor-weddings/",
-    "/guides/choosing-a-wedding-dj/", "/guides/playlist-vs-live-dj/",
-    "/privacy/",
+    "/corporate-events/", "/parties/", "/mixes/", "/reviews/", "/faq/",
+    "/venues/", "/venues/denver/", "/venues/mountain-weddings/",
+    "/venues/outdoor-weddings/", "/guides/choosing-a-wedding-dj/",
+    "/guides/playlist-vs-live-dj/", "/privacy/",
 }
 
 SKIP_SCHEMES = ("mailto:", "tel:", "javascript:")
 ASSET_EXTENSIONS = (
     ".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".ico",
-    ".xml", ".txt", ".pdf", ".json",
+    ".xml", ".txt", ".pdf", ".json", ".mp4", ".webm",
 )
 
 
@@ -69,6 +68,10 @@ class LinkExtractor(html.parser.HTMLParser):
             self.links.append(("link", "href", attrs["href"]))
         if tag == "script" and attrs.get("src"):
             self.links.append(("script", "src", attrs["src"]))
+        if tag == "video" and attrs.get("poster"):
+            self.links.append(("video", "poster", attrs["poster"]))
+        if tag == "source" and attrs.get("src"):
+            self.links.append(("source", "src", attrs["src"]))
 
 
 def resolve_local_path(link, page_path):

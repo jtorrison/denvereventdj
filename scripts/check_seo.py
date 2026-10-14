@@ -90,6 +90,10 @@ class PageParser(html.parser.HTMLParser):
         if tag in ("link", "script", "img") and (d.get("src") or d.get("href")):
             value = d.get("src") or d.get("href")
             self.asset_refs.append((tag, "src" if d.get("src") else "href", value))
+        if tag == "video" and d.get("poster"):
+            self.asset_refs.append(("video", "poster", d["poster"]))
+        if tag == "source" and d.get("src"):
+            self.asset_refs.append(("source", "src", d["src"]))
 
     def handle_endtag(self, tag):
         if tag == "title":

@@ -1,0 +1,92 @@
+<!--
+  Shared contact form — canonical source, used on both / (closing section)
+  and /contact/. Wrapped in PARTIAL:CONTACT_FORM start/end comment markers
+  on each page; scripts/build.py overwrites everything between those
+  markers with this file's contents. Edit here, then run
+  `python3 scripts/build.py` — never hand-edit a page's copy of the form,
+  it'll just get overwritten.
+
+  script.js finds this by its .booking-form-wrap class: on submit it POSTs
+  to Formspree over fetch, and fires the GA4 generate_lead event (see
+  data-ga-event on the <form>) only on a genuinely successful response —
+  never on click, never on a Formspree-side rejection.
+--><div class="booking-form-wrap">
+  <form class="booking-form" action="https://formspree.io/f/xjgprbne" method="POST" data-ga-event="generate_lead" data-ga-label="contact_form">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">Your Name *</label>
+        <input type="text" id="name" name="name" required placeholder="Jane &amp; John Smith" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="you@email.com" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group optional">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="(720) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label for="event-type">Event Type *</label>
+        <select id="event-type" name="event_type" required>
+          <option value="">Select event type</option>
+          <option value="wedding">Wedding</option>
+          <option value="corporate">Corporate Event</option>
+          <option value="holiday-party">Holiday Party</option>
+          <option value="formal">Formal / Prom</option>
+          <option value="birthday">Birthday Party</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="event-date">Event Date *</label>
+        <input type="date" id="event-date" name="event_date" required />
+      </div>
+      <div class="form-group optional">
+        <label for="venue">Venue / Location</label>
+        <input type="text" id="venue" name="venue" placeholder="Venue name, Denver CO" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group optional">
+        <label for="guests">Estimated Guest Count</label>
+        <input type="number" id="guests" name="guests" placeholder="~100" />
+      </div>
+      <div class="form-group optional">
+        <label for="hours">Hours of Coverage</label>
+        <select id="hours" name="hours">
+          <option value="">Not sure yet</option>
+          <option value="3">3 hours</option>
+          <option value="4">4 hours</option>
+          <option value="5">5 hours</option>
+          <option value="6+">6+ hours</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group optional">
+      <label for="referral-source">How did you hear about us?</label>
+      <select id="referral-source" name="referral_source">
+        <option value="">Select one</option>
+        <option value="google-search">Google search</option>
+        <option value="instagram">Instagram</option>
+        <option value="the-knot-weddingwire">The Knot / WeddingWire</option>
+        <option value="venue-planner-referral">Venue or planner referral</option>
+        <option value="friend-past-client">Friend or past client</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group optional">
+      <label for="message">Tell us about your event</label>
+      <textarea id="message" name="message" rows="4" placeholder="What do you want the night to feel like?"></textarea>
+    </div>
+    <button type="submit" class="btn-primary btn-full">Send My Request &rarr;</button>
+    <p class="form-note">Or call / text anytime: <a href="tel:7204455369" data-ga-event="call_tap" data-ga-label="contact_form_note">(720) 445-5369</a></p>
+    <p class="form-error" role="alert">Something went wrong sending that — please call or text <a href="tel:7204455369">(720) 445-5369</a> instead.</p>
+  </form>
+  <div class="form-success" role="status">
+    <p>Got it, thanks! I'll be in touch soon, usually with a quick call. Want to talk sooner? Call or text me at <a href="tel:7204455369">(720) 445-5369</a>.</p>
+  </div>
+</div>

@@ -5,8 +5,9 @@ the live site (GitHub Pages still serves these files exactly as committed
 — nothing runs server-side), a few things need to stay in sync by hand
 otherwise, so this does them mechanically instead:
 
-  1. Inject partials/header.html and partials/footer.html into every
-     page's <!-- PARTIAL:HEADER --> / <!-- PARTIAL:FOOTER --> regions.
+  1. Inject each file in PARTIALS_MAP into every page's matching
+     <!-- PARTIAL:NAME --> / <!-- /PARTIAL:NAME --> region (header, footer,
+     and the shared contact form, which appears on both / and /contact/).
   2. Regenerate sitemap.xml from whatever pages currently exist.
   3. Regenerate llms.txt from the sitemap.
   4. Sync each story/guide page's visible "Updated <Month Year>" text and
@@ -29,8 +30,13 @@ PARTIALS = ROOT / "partials"
 
 EXCLUDE_DIR_NAMES = {".git", ".github", "partials", "scripts", "_inbox", "_docs", "assets"}
 
-HEADER_RE = re.compile(r"<!-- PARTIAL:HEADER -->.*?<!-- /PARTIAL:HEADER -->", re.DOTALL)
-FOOTER_RE = re.compile(r"<!-- PARTIAL:FOOTER -->.*?<!-- /PARTIAL:FOOTER -->", re.DOTALL)
+# marker name -> source file in partials/. Add a new pair here for any
+# future shared block; inject_partials() handles all of them generically.
+PARTIALS_MAP = {
+    "HEADER": "header.html",
+    "FOOTER": "footer.html",
+    "CONTACT_FORM": "contact-form.html",
+}
 UPDATED_MARKER_RE = re.compile(r"<!-- updated:\s*(\d{4}-\d{2}-\d{2})\s*-->")
 DATE_MODIFIED_RE = re.compile(r'("dateModified":\s*")[^"]*(")')
 UPDATED_TEXT_RE = re.compile(r"(<span data-updated-text>)[^<]*(</span>)")
@@ -58,13 +64,16 @@ def load_partial(name):
     return text.split("-->", 1)[1].strip()
 
 
-def inject_partials(text, header_md, footer_md):
-    text = HEADER_RE.sub(
-        lambda _: f"<!-- PARTIAL:HEADER -->\n{header_md}\n<!-- /PARTIAL:HEADER -->", text
-    )
-    text = FOOTER_RE.sub(
-        lambda _: f"<!-- PARTIAL:FOOTER -->\n{footer_md}\n<!-- /PARTIAL:FOOTER -->", text
-    )
+def inject_partials(text, partial_contents):
+    """partial_contents: {marker_name: rendered_content}. Only markers that
+    actually appear in this page are touched — a page without a
+    PARTIAL:CONTACT_FORM region (e.g. 404.html) is left alone for that one."""
+    for marker_name, content in partial_contents.items():
+        pattern = re.compile(
+            rf"<!-- PARTIAL:{marker_name} -->.*?<!-- /PARTIAL:{marker_name} -->", re.DOTALL
+        )
+        replacement = f"<!-- PARTIAL:{marker_name} -->\n{content}\n<!-- /PARTIAL:{marker_name} -->"
+        text = pattern.sub(lambda _, r=replacement: r, text)
     return text
 
 
@@ -167,14 +176,13 @@ def build_llms_txt(entries, pages_by_url):
 def main():
     check_mode = "--check" in sys.argv
     pages = discover_pages()
-    header_md = load_partial("header.html")
-    footer_md = load_partial("footer.html")
+    partial_contents = {name: load_partial(fname) for name, fname in PARTIALS_MAP.items()}
 
     changed_files = []
 
     for page in pages:
         original = page.read_text(encoding="utf-8")
-        updated = inject_partials(original, header_md, footer_md)
+        updated = inject_partials(original, partial_contents)
         updated = sync_updated_date(updated)
         if updated != original:
             changed_files.append(page.relative_to(ROOT))
