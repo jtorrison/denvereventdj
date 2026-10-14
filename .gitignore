@@ -17,3 +17,7 @@
 /_site/
 
 .DS_Store
+
+# Processed media not yet used on any page. Moves back into assets/
+# when a page uses it, so the public repo only holds what is live.
+/_staging/

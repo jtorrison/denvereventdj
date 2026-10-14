@@ -20,14 +20,15 @@ CSS_FILE = ROOT / "styles.css"
 # "large" = 18pt+/14pt-bold+ (buttons, headings, eyebrows) -> AA threshold 3:1
 # "normal" = body copy -> AA threshold 4.5:1
 PAIRS = [
-    ("body text on bg",           "--text",  "--bg",       "normal"),
-    ("muted text on bg",          "--muted", "--bg",       "normal"),
-    ("muted text on surface",     "--muted", "--surface",  "normal"),
-    ("gold eyebrow on bg",        "--gold",  "--bg",       "large"),
-    ("gold eyebrow on surface",   "--gold",  "--surface",  "large"),
-    ("btn-primary text on gold",  "--bg",    "--gold",     "large"),
-    ("text on surface",           "--text",  "--surface",  "normal"),
-    ("text on surface2",          "--text",  "--surface2", "normal"),
+    ("body text on bg",            "--text",  "--bg",       "normal"),
+    ("muted text on bg",           "--muted", "--bg",       "normal"),
+    ("muted text on surface",      "--muted", "--surface",  "normal"),
+    ("gold eyebrow on bg",         "--gold",  "--bg",       "large"),
+    ("gold eyebrow on surface",    "--gold",  "--surface",  "large"),
+    ("btn-primary text on gold",   "--text",  "--gold-btn", "large"),
+    ("phone-bar text on gold-btn", "--text",  "--gold-btn", "normal"),
+    ("text on surface",            "--text",  "--surface",  "normal"),
+    ("text on surface2",           "--text",  "--surface2", "normal"),
 ]
 
 THRESHOLDS = {"normal": 4.5, "large": 3.0}

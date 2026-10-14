@@ -13,15 +13,28 @@ that touches pricing or offers. None of the three are ever committed.
   these files exactly as committed. One local maintenance script,
   `scripts/build.py`, keeps a few generated/derived things in sync (see
   "Before every push" below). Run it, don't hand-edit what it manages.
-- Header and footer are shared across every page via `partials/header.html`
-  and `partials/footer.html`. Each page wraps its header/footer regions in
-  `PARTIAL:HEADER` / `PARTIAL:FOOTER` comment markers (see `index.html` for
-  the exact form); `scripts/build.py` overwrites everything between those
-  markers from the partial files. Edit the partial, run the script — never
-  hand-edit a page's header/footer region, it'll just get overwritten.
+- Header, footer, and the contact form are shared across pages via
+  `partials/header.html`, `partials/footer.html`, and
+  `partials/contact-form.html`. Each page wraps the matching region in
+  `PARTIAL:HEADER` / `PARTIAL:FOOTER` / `PARTIAL:CONTACT_FORM` comment
+  markers (see `index.html` or `contact/index.html` for the exact form);
+  `scripts/build.py` overwrites everything between matching markers from
+  the partial file (`PARTIALS_MAP` in that script maps marker name to
+  source file — add a pair there for any future shared block). Edit the
+  partial, run the script — never hand-edit a page's copy of a shared
+  region, it'll just get overwritten.
 - **Adding something to the nav is always a manual edit to
   `partials/header.html`, and always waits for Josh's OK — no exceptions,
-  even when a page that would belong there already exists.**
+  even when a page that would belong there already exists.** Nav v1
+  (Phase 1): Weddings, Pricing, About, Contact only — no Corporate &
+  Parties, Stories, Reviews, Tools, Mixes, or FAQ until each is approved.
+- The contact form posts to Formspree over `fetch` (not a plain HTML POST)
+  so GA4's `generate_lead` event fires only on a genuinely successful
+  submit, never on click and never on a Formspree-side rejection — see
+  the `.booking-form-wrap` handler in `script.js`. Every page using the
+  form needs a `.booking-form-wrap` → `.form-success` / `.form-error`
+  pair; `scripts/check_seo.py` doesn't check this, so review by eye when
+  touching it.
 - All CSS, JS, and image paths are root-relative (`/styles.css`,
   `/script.js`, `/assets/...`), never page-relative (`assets/...`,
   `../assets/...`). Pages live in subfolders (`/weddings/index.html`,
@@ -50,12 +63,13 @@ that touches pricing or offers. None of the three are ever committed.
 - Internal `<a>` links always use the trailing-slash folder form — never
   link to `.html` or `index.html`. The checker fails the build on either.
 - Canonicals and `sitemap.xml` use `https://denvereventdj.com/<path>/`.
-- Subpages link to homepage sections as `/#booking` etc. — this works
-  identically to a bare `#booking` when you're already on the homepage
-  (same document, same-page scroll) and correctly navigates home-then-scroll
-  from anywhere else. This is also why the shared header/footer partials
-  use `/#services`, `/#booking`, `/` for the logo, etc. instead of bare
-  anchors — one identical partial file works on every page.
+- The site is fully multi-page as of Phase 1 — the nav links to real pages
+  (`/weddings/`, `/pricing/`, `/about/`, `/contact/`), not homepage
+  anchors. The one exception is `/#booking`: that was the old one-page
+  site's booking section, and `script.js` redirects it to `/contact/` on
+  load (`location.hash === '#booking'` → `location.replace('/contact/')`)
+  so any old bookmark or inbound link still lands somewhere useful. Don't
+  add new homepage-anchor links — point directly at the real page instead.
 - `404.html` exists at the repo root (GitHub Pages serves it automatically
   for any unmatched path) with the same chrome, `noindex`, a link home, and
   a Check My Date button.
@@ -129,6 +143,26 @@ as part of "publish."
 The checker (`scripts/check_seo.py` + `scripts/check_links.py`) enforces
 all of this mechanically — see "Checks" below.
 
+## Design
+
+Light mode (Phase 1 decision — the Phase 0 build was dark, now retired).
+`styles.css` `:root` vars: `--bg`/`--surface`/`--surface2`/`--text`/`--muted`
+are the light palette; `--gold` is the text-safe accent (eyebrows, links,
+icons — passes against `--bg`/`--surface`); `--gold-btn` + `--gold-lt`
+(hover) are for button/phone-bar *backgrounds* only, always paired with
+`--text` as the foreground, never `--gold`. Don't mix these up — a button
+styled with `--gold` as its own text color was the old dark-mode pairing
+and fails contrast in light mode. `scripts/check_contrast.py`'s `PAIRS`
+list tests the actual pairs in use; add to it if you introduce a new one.
+
+The homepage hero (`.hero`) is a deliberate exception: full-bleed photo +
+dark gradient overlay, so its text colors are hardcoded light values, not
+theme variables — it's a fixed dark island regardless of the site's light
+theme. Every other page uses `.hero-light` (text-first, photo below, not
+behind) specifically so the mobile-first-screen requirement (H1 + one
+line + both CTAs visible before any image) is easy to guarantee — don't
+give a subpage a full-bleed photo hero like Home's.
+
 ## Voice and content rules
 
 - Voice: warm, casual, conversational, short paragraphs, no filler. Josh
@@ -162,16 +196,26 @@ python3 scripts/check_contrast.py  # WCAG AA
 
 CI (`.github/workflows/checks.yml`) runs all of the above on every push,
 plus Lighthouse (mobile) on the homepage and the first entry of each
-content type. **Accessibility ≥90 is a hard fail. Performance ≥90 is a
-warning only until the Phase 1 redesign ships** — TODO at that point: flip
-`categories:performance` from `"warn"` to `"error"` in `.lighthouserc.json`.
-On push to `main`, a final job submits every sitemap URL to IndexNow.
+content type. **Accessibility ≥90 is a hard fail. Performance ≥90 is still
+a warning only** in `.lighthouserc.json` — the Phase 1 redesign (light
+mode, the 5 core pages) has shipped, but performance hasn't been
+re-measured and tuned against it yet (large hero photos, Google Fonts,
+etc.). Flip `categories:performance` from `"warn"` to `"error"` once
+that's done, not automatically just because Phase 1 shipped. On push to
+`main`, a final job submits every sitemap URL to IndexNow.
 
 ## Raw photos and unpublished content
 
 Go in `_inbox/` at the repo root. That folder is gitignored — never commit
 anything from it directly; process images (resize + WebP) into `assets/`
 first.
+
+**Known issue**: `assets/josh.webp` and `assets/event-1.webp` are
+byte-identical (confirmed via md5, traces back to the original pre-Claude
+upload) — not two different photos despite the filenames and old alt
+text. `event-1.webp` is currently unreferenced by any page. Flag this to
+Josh during the pending photo-rename pass; don't use both on the same
+page assuming they differ.
 
 ## Crawlers
 
