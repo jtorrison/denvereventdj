@@ -65,7 +65,7 @@ img { display: block; max-width: 100%; }
   padding: 0 2.5rem;
 }
 
-section:not(.hero):not(.stats):not(.hero-light) { padding: 3.25rem 0; }
+section:not(.hero):not(.stats):not(.hero-light):not(.error-page) { padding: 3.25rem 0; }
 
 .section-eyebrow {
   font-size: 0.75rem;
@@ -1001,7 +1001,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); }
   .form-row { grid-template-columns: 1fr; }
   .contact-options { flex-direction: column; }
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-  section:not(.hero):not(.stats):not(.hero-light) { padding: 2.625rem 0; }
+  section:not(.hero):not(.stats):not(.hero-light):not(.error-page) { padding: 2.625rem 0; }
   .hero-light { padding: 2.5rem 0 2rem; }
   .phone-bar { display: none; }
   .sticky-mobile-cta { display: flex; }

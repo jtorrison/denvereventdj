@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
@@ -22,6 +24,8 @@ jobs:
     needs: build-check
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
@@ -37,6 +41,8 @@ jobs:
     needs: link-and-contrast-checks
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
@@ -73,5 +79,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Submit sitemap URLs to IndexNow
         run: python3 scripts/ci_indexnow_submit.py
