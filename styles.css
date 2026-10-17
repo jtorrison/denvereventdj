@@ -66,12 +66,6 @@ img { display: block; max-width: 100%; }
 }
 
 section:not(.hero):not(.stats):not(.hero-light) { padding: 3.25rem 0; }
-/* Adjacent plain sections each contributing top+bottom padding doubles the
-   visual gap between them — the second section's top padding is dropped so
-   only one gap (its neighbor's bottom padding) separates them. */
-section:not(.hero):not(.stats):not(.hero-light) + section:not(.hero):not(.stats):not(.hero-light) {
-  padding-top: 0;
-}
 
 .section-eyebrow {
   font-size: 0.75rem;
