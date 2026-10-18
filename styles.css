@@ -681,6 +681,29 @@ nav {
   .media-row .media-row-media.media-row-vertical { max-width: 280px; }
 }
 
+/* ── Vertical pair (two tall clips/photos side by side at a moderate
+   size, not full section width — e.g. About "Every crowd taught me
+   something") ──────────────────────────────────────────────────── */
+.vertical-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  max-width: 520px;
+  margin: 2.5rem auto 0;
+}
+.vertical-pair img,
+.vertical-pair video {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  background: #000;
+}
+@media (max-width: 700px) {
+  .vertical-pair { grid-template-columns: 1fr; max-width: 260px; gap: 1.5rem; }
+}
+
 /* ── Narrow, centered text block (plain text sections with no media,
    so they don't leave half the section width empty) ──────────────── */
 .section-inner.text-centered { max-width: 640px; text-align: center; }
