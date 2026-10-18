@@ -217,6 +217,55 @@ text. `event-1.webp` is currently unreferenced by any page. Flag this to
 Josh during the pending photo-rename pass; don't use both on the same
 page assuming they differ.
 
+## Video processing
+
+Raw clips go in `_inbox/` like photos — never commit a `.MOV`/original
+export. Always use `scripts/process_video.sh <source> <output-name>
+[options]` to encode into `assets/videos/`, never a one-off ffmpeg
+command typed inline. That script is the one place the encode settings
+(H.264, short side 720px, faststart) live — if a setting needs to
+change, change it there so every future clip gets it, instead of
+re-typing a slightly different command each time.
+
+**ffmpeg** is installed at `/usr/local/bin/ffmpeg` — a static binary
+from the `imageio-ffmpeg` PyPI package (`pip install imageio-ffmpeg`,
+then copy `imageio_ffmpeg.get_ffmpeg_exe()` to `/usr/local/bin/ffmpeg`),
+not Homebrew. `brew install ffmpeg` has no prebuilt bottle for this
+Mac's old OS version and was still compiling dependencies from source
+after 15+ minutes, so this was the faster path to a working binary. One
+gap from skipping Homebrew: this does **not** include a separate
+`ffprobe` binary (that package only ships `ffmpeg`). For a full
+`ffmpeg` + `ffprobe` toolchain, `brew install ffmpeg` still works, it's
+just slow on this machine — let it run in the background if you need
+real `ffprobe` output beyond what `ffmpeg -i <file>` already prints to
+stderr (format, streams, duration).
+
+**Audio is kept by default**, encoded as AAC 128k with loudness
+normalization (`loudnorm=I=-16:TP=-1.5:LRA=11`). Pass `--mute` only when
+the source audio is genuinely unusable (wind noise, no usable sound) —
+document why in the commit message when you do. Never pass `-an`
+outside that flag.
+
+**A brief that says a clip should be "muted" means the HTML5 `muted`
+attribute on the `<video>` tag** (so the clip doesn't autoplay with
+sound) — it does not mean strip the audio track during encoding. This
+exact confusion previously caused every clip run through an undocumented
+ad-hoc encode command to lose its audio permanently, since the command
+had `-an` baked in. `scripts/process_video.sh` exists specifically so
+that mistake can't happen silently again.
+
+HDR source footage (iPhone HLG/BT.2020 — check with `ffprobe` for
+`arib-std-b67` or `bt2020` in the color metadata) needs the script's
+`--hdr` flag to tonemap down to SDR bt709, or colors will look washed
+out or wrong.
+
+Keep each file under ~5MB when possible — the script warns if the
+output comes in over that. `<video>` tags use `controls playsinline
+preload="none"` with a poster image; never add `muted` or `autoplay`
+unless Josh explicitly asks for an autoplaying background clip (which
+would then genuinely want `--mute`, since autoplay-with-sound is
+blocked by every browser anyway).
+
 ## Crawlers
 
 `robots.txt` allows all crawlers, with explicit `Allow: /` blocks for
