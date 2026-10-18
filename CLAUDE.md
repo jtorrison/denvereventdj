@@ -227,6 +227,19 @@ command typed inline. That script is the one place the encode settings
 change, change it there so every future clip gets it, instead of
 re-typing a slightly different command each time.
 
+**ffmpeg** is installed at `/usr/local/bin/ffmpeg` — a static binary
+from the `imageio-ffmpeg` PyPI package (`pip install imageio-ffmpeg`,
+then copy `imageio_ffmpeg.get_ffmpeg_exe()` to `/usr/local/bin/ffmpeg`),
+not Homebrew. `brew install ffmpeg` has no prebuilt bottle for this
+Mac's old OS version and was still compiling dependencies from source
+after 15+ minutes, so this was the faster path to a working binary. One
+gap from skipping Homebrew: this does **not** include a separate
+`ffprobe` binary (that package only ships `ffmpeg`). For a full
+`ffmpeg` + `ffprobe` toolchain, `brew install ffmpeg` still works, it's
+just slow on this machine — let it run in the background if you need
+real `ffprobe` output beyond what `ffmpeg -i <file>` already prints to
+stderr (format, streams, duration).
+
 **Audio is kept by default**, encoded as AAC 128k with loudness
 normalization (`loudnorm=I=-16:TP=-1.5:LRA=11`). Pass `--mute` only when
 the source audio is genuinely unusable (wind noise, no usable sound) —
