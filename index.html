@@ -64,7 +64,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20261018" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
@@ -112,14 +112,13 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Denver's Favorite<br /><em class="rotating-text">Wedding DJ</em></h1>
-      <p class="hero-sub">The right music. The right energy. A night that feels like yours.</p>
+      <p class="hero-sub hero-sub-wide">The right music. The right energy. A night that feels like yours.</p>
       <p class="hero-sub">I'm Josh. I DJ the party, help plan the sound, and work with you to make the whole music experience happen.</p>
       <div class="hero-actions">
         <a href="/contact/" class="btn-primary" data-ga-event="book_a_call_click" data-ga-label="home_hero">Check My Date &rarr;</a>
         <a href="tel:7204455369" class="btn-ghost">&#9742; Call or Text Josh</a>
       </div>
     </div>
-    <div class="hero-scroll">Scroll</div>
   </section>
 
   <!-- ── PROOF BAR ──────────────────────────────── -->
@@ -127,10 +126,6 @@
     <div class="stat-item">
       <span class="stat-num">15+</span>
       <span class="stat-label">Years DJing</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">100+</span>
-      <span class="stat-label">Events</span>
     </div>
     <div class="stat-item stat-item-google" aria-label="Rated 5 out of 5 stars on Google">
       <div class="stat-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -143,6 +138,10 @@
         </svg>
         <span>5.0 on Google</span>
       </span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100+</span>
+      <span class="stat-label">Events</span>
     </div>
   </section>
   <div class="proof-quote proof-quote-lg">
@@ -160,24 +159,29 @@
     <div class="section-inner">
       <h2>From the first song to the last, let's make it feel right.</h2>
       <div class="services-grid">
-        <div class="service-card">
-          <img class="card-img" src="/assets/photos/2023-11_reykjavik-iceland_jackson-wedding_guests-singing-circle.webp" alt="Wedding guests with their arms around each other singing in a circle at the Jackson wedding in Reykjavik, Iceland" loading="lazy" decoding="async" />
-          <h3>Weddings</h3>
-          <p>A night that feels like you, from the vows to the last song.</p>
-          <a href="/weddings/" class="card-link">See Wedding DJ Services &rarr;</a>
-        </div>
-        <div class="service-card">
-          <img class="card-img" src="/assets/photos/2026_nyc_josh-djing-side.webp" alt="Side view of Josh Torrison DJing in New York City" loading="lazy" decoding="async" />
-          <h3>Corporate Events</h3>
-          <p>Professional when it needs to be. A celebration when it's time.</p>
-          <a href="/contact/" class="card-link" data-ga-event="book_a_call_click" data-ga-label="home_corporate_card">Check My Date &rarr;</a>
-        </div>
-        <div class="service-card">
-          <img class="card-img" src="/assets/photos/2026-06_house-party_honolulu-birthday_josh-djing.webp" alt="Josh DJing a Hawaiian-themed birthday house party" loading="lazy" decoding="async" />
-          <h3>Parties and Campus Events</h3>
-          <p>Bring the energy of the best night out to your own event.</p>
-          <a href="/contact/" class="card-link" data-ga-event="book_a_call_click" data-ga-label="home_parties_card">Check My Date &rarr;</a>
-        </div>
+        <a href="/weddings/" class="service-card">
+          <img src="/assets/photos/2026-08-29_boulder-flower-farm_krawczyk_sunset-over-tent.webp" alt="Sunset over the reception tent at the Krawczyk wedding at Boulder Flower Farm" loading="lazy" decoding="async" />
+          <div class="service-card-content">
+            <h3>Weddings</h3>
+            <p>A night that feels like you, from the vows to the last song.</p>
+          </div>
+        </a>
+        <a href="/contact/?event_type=corporate" class="service-card" data-ga-event="book_a_call_click" data-ga-label="home_corporate_card">
+          <img src="/assets/photos/2026_aspen_madame-ushi_josh-djing-visuals.webp" alt="Josh Torrison DJing under psychedelic visuals at Madame Ushi in Aspen" loading="lazy" decoding="async" />
+          <div class="service-card-content">
+            <h3>Corporate Events</h3>
+            <p>Professional when it needs to be. A celebration when it's time.</p>
+          </div>
+        </a>
+        <a href="/contact/?event_type=party" class="service-card" data-ga-event="book_a_call_click" data-ga-label="home_parties_card">
+          <video class="service-card-video" muted loop playsinline preload="auto" data-autoplay-inview poster="/assets/videos/2026_cu-boulder_campus-event_360-loop-muted_poster.webp" aria-hidden="true">
+            <source src="/assets/videos/2026_cu-boulder_campus-event_360-loop-muted.mp4" type="video/mp4" />
+          </video>
+          <div class="service-card-content">
+            <h3>Parties and Campus Events</h3>
+            <p>Bring the energy of the best night out to your own event.</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -330,6 +334,7 @@
           <option value="holiday-party">Holiday Party</option>
           <option value="formal">Formal / Prom</option>
           <option value="birthday">Birthday Party</option>
+          <option value="party">Party or Campus Event</option>
           <option value="other">Other</option>
         </select>
       </div>
@@ -428,7 +433,7 @@
 </div>
 <!-- /PARTIAL:FOOTER -->
 
-  <script src="/script.js"></script>
+  <script src="/script.js?v=20261018"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

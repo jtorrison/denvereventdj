@@ -49,6 +49,19 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Preselect the contact form's Event Type from a ?event_type= query param,
+// so a link like /contact/?event_type=corporate lands with that option
+// already chosen. Only sets it when the value is one of the form's own
+// options, so an unrecognized param just leaves the default in place.
+(() => {
+  const eventType = new URLSearchParams(window.location.search).get('event_type');
+  const select = document.getElementById('event-type');
+  if (!eventType || !select) return;
+  if ([...select.options].some((o) => o.value === eventType)) {
+    select.value = eventType;
+  }
+})();
+
 // Formspree submission over AJAX so generate_lead fires only on a
 // genuinely successful submit, never on every click of the button and
 // never on a Formspree-side rejection. Each form lives in a
@@ -91,6 +104,39 @@ document.querySelectorAll('.booking-form-wrap').forEach((wrap) => {
       });
   });
 });
+
+// Sticky mobile CTA: on the home page's full-bleed hero, stay hidden
+// until the visitor scrolls past it, so landing shows only the hero's
+// own two buttons instead of four competing for thumb space. Other
+// pages (hero-light, much shorter) keep the bar visible immediately.
+const tallHero = document.querySelector('.hero');
+const stickyBar = document.querySelector('.sticky-mobile-cta');
+if (tallHero && stickyBar) {
+  document.body.classList.add('has-tall-hero');
+  const toggleStickyBar = () => {
+    stickyBar.classList.toggle('past-hero', window.scrollY > tallHero.offsetHeight - 80);
+  };
+  toggleStickyBar();
+  window.addEventListener('scroll', toggleStickyBar, { passive: true });
+}
+
+// Autoplay-in-view, muted, looping videos (home service cards, About's
+// Nosirrot reels): play only while scrolled into view, pause out of view,
+// and under reduced motion never call play() at all — the video just
+// shows its poster, same as every other reduced-motion fallback here.
+const autoplayVideos = document.querySelectorAll('[data-autoplay-inview]');
+if (autoplayVideos.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const autoplayObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.play().catch(() => {});
+      } else {
+        entry.target.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+  autoplayVideos.forEach((v) => autoplayObserver.observe(v));
+}
 
 // Rotating hero text — skipped entirely under reduced motion.
 const rotatingTerms = ['Wedding DJ', 'Event DJ', 'Corporate DJ', 'Party DJ'];
