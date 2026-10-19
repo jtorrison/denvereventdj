@@ -41,6 +41,12 @@ that touches pricing or offers. None of the three are ever committed.
   `/stories/boulder-flower-farm/index.html`, etc.) — a page-relative path
   resolves differently depending on folder depth and breaks the moment a
   page isn't at the repo root.
+- `/styles.css` and `/script.js` are referenced on every page with a
+  `?v=YYYYMMDD` cache-busting query string (e.g. `/script.js?v=20261018`),
+  so returning visitors' browsers fetch the new file instead of a stale
+  cached copy. **Bump that date on every page whenever either file
+  changes** — find/replace the old `?v=` value across all pages in the
+  same commit as the CSS/JS change.
 - **Local preview gotcha**: root-relative paths only resolve correctly when
   the thing serving the preview treats the repo folder itself as the web
   root. Serving from a parent folder, or opening a page via `file://`,

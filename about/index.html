@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20261018" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
@@ -93,10 +93,22 @@
 
   <!-- ── IT STARTED AT AN APPLE STORE ──────────────── -->
   <section>
-    <div class="section-inner text-centered">
-      <h2>It started at an Apple Store</h2>
-      <p class="section-sub">In middle school I discovered GarageBand on an iMac in an Apple Store. I didn't have a computer at home, so I'd make songs from loops in the store and come back whenever I could.</p>
-      <p class="section-sub" style="margin-bottom:0;">I saved money mowing lawns, shoveling driveways, cleaning offices and doing odd jobs until I could buy my own iMac. Then came Ableton Live, live loops and mixing for friends. By senior year, I had my first paid DJ gig at a Sweet 16.</p>
+    <div class="section-inner">
+      <div class="media-row media-row-reverse">
+        <div class="media-row-media media-row-pair">
+          <video controls muted loop playsinline preload="none" data-autoplay-inview poster="/assets/videos/nosirrot-ny-2_poster.webp" aria-label="Josh DJing a night out in New York City">
+            <source src="/assets/videos/nosirrot-ny-2.mp4" type="video/mp4" />
+          </video>
+          <video controls muted loop playsinline preload="none" data-autoplay-inview poster="/assets/videos/nosirrot-ny-3_poster.webp" aria-label="Josh DJing a night out in New York City">
+            <source src="/assets/videos/nosirrot-ny-3.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="media-row-text">
+          <h2>It started at an Apple Store</h2>
+          <p class="section-sub">In middle school I discovered GarageBand on an iMac in an Apple Store. I didn't have a computer at home, so I'd make songs from loops in the store and come back whenever I could.</p>
+          <p class="section-sub" style="margin-bottom:0;">I saved money mowing lawns, shoveling driveways, cleaning offices and doing odd jobs until I could buy my own iMac. Then came Ableton Live, live loops and mixing for friends. By senior year, I had my first paid DJ gig at a Sweet 16.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -109,7 +121,7 @@
           <p class="section-sub" style="margin-bottom:0;">The Hill in Boulder and college house parties taught me the power of familiar songs. Denver nightclubs taught me to build energy. School dances taught me to change direction fast when a track wasn't landing. Weddings taught me how to move between meaningful moments, dinner and a late-night party.</p>
         </div>
         <div class="media-row-media media-row-vertical">
-          <video controls playsinline preload="none" poster="/assets/videos/2026_cu-boulder_campus-event_360-dj-view_poster.webp" aria-label="Chip the Buffalo and a cheering crowd of students at a CU Boulder campus event, 2026">
+          <video controls muted loop playsinline preload="none" data-autoplay-inview poster="/assets/videos/2026_cu-boulder_campus-event_360-dj-view_poster.webp" aria-label="Chip the Buffalo and a cheering crowd of students at a CU Boulder campus event, 2026">
             <source src="/assets/videos/2026_cu-boulder_campus-event_360-dj-view.mp4" type="video/mp4" />
           </video>
         </div>
@@ -127,6 +139,26 @@
         <div class="media-row-text">
           <h2>I still love the moment it clicks</h2>
           <p class="section-sub" style="margin-bottom:0;">I love DJing because every crowd is different. I pay attention to who's dancing and what the room needs. I like bringing generations together early and finding the right groove as the night changes. I mix live, adjust as I go and genuinely love the work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NOSIRROT / HOUSE MUSIC ───────────────────── -->
+  <section style="background:var(--surface);border-top:1px solid var(--border);">
+    <div class="section-inner">
+      <div class="media-row">
+        <div class="media-row-text">
+          <h2>When I'm not DJing weddings, I'm NOSIRROT</h2>
+          <p class="section-sub" style="margin-bottom:0;">House music is where I go when the night is mine. I've played direct support for Cedric Gervais at Madame Ushi in Aspen, and I still play club and house sets whenever I can. It's the same skill as a wedding dance floor: read the room and keep it moving.</p>
+        </div>
+        <div class="media-row-media media-row-pair">
+          <video controls muted loop playsinline preload="none" data-autoplay-inview poster="/assets/videos/nosirrot-aspen-2_poster.webp" aria-label="Josh DJing a house set as NOSIRROT at Madame Ushi in Aspen">
+            <source src="/assets/videos/nosirrot-aspen-2.mp4" type="video/mp4" />
+          </video>
+          <video controls muted loop playsinline preload="none" data-autoplay-inview poster="/assets/videos/nosirrot-aspen-4_poster.webp" aria-label="Josh DJing a house set as NOSIRROT at Madame Ushi in Aspen">
+            <source src="/assets/videos/nosirrot-aspen-4.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
@@ -211,7 +243,7 @@
 </div>
 <!-- /PARTIAL:FOOTER -->
 
-  <script src="/script.js"></script>
+  <script src="/script.js?v=20261018"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
