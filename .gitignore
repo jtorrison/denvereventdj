@@ -21,3 +21,7 @@
 # Processed media not yet used on any page. Moves back into assets/
 # when a page uses it, so the public repo only holds what is live.
 /_staging/
+
+# Local Browser-pane preview server config — machine-specific, not
+# needed for the published site or by other contributors.
+/.claude/

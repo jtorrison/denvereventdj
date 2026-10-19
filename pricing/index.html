@@ -42,7 +42,13 @@
       { "@type": "Question", "name": "What's included in a package?", "acceptedAnswer": { "@type": "Answer", "text": "Me as your DJ, music planning, MC support, professional sound and standard lighting appropriate for the event. We'll confirm the setup and schedule together before you book." } },
       { "@type": "Question", "name": "Can we customize a package?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Whether it's a reception, a company party or a wedding with multiple spaces, I'll help plan the sound, music and equipment around your event. If we need something I don't already own, we can look at rental options and include the details in your quote." } },
       { "@type": "Question", "name": "Do you travel outside Denver?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. I DJ weddings and events across Colorado and beyond. We'll discuss any travel details in your quote before you book." } },
-      { "@type": "Question", "name": "Can you handle both our ceremony and reception?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Full Experience is designed for ceremony-to-reception coverage. I'll go over the venue, microphones and sound setup with you so everything is planned ahead of time." } }
+      { "@type": "Question", "name": "Can you handle both our ceremony and reception?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Full Experience is designed for ceremony-to-reception coverage. I'll go over the venue, microphones and sound setup with you so everything is planned ahead of time." } },
+      { "@type": "Question", "name": "How much is the deposit?", "acceptedAnswer": { "@type": "Answer", "text": "50 percent holds your date and is non-refundable. You won't pay anything until we've confirmed the details and signed the contract." } },
+      { "@type": "Question", "name": "When is the rest due?", "acceptedAnswer": { "@type": "Answer", "text": "The remaining balance is due the week of your event." } },
+      { "@type": "Question", "name": "What if we want to keep the party going?", "acceptedAnswer": { "@type": "Answer", "text": "It happens all the time. Overtime is $250 per hour, and you can decide that night. It's written into the contract so there are no surprises." } },
+      { "@type": "Question", "name": "Do you price match?", "acceptedAnswer": { "@type": "Answer", "text": "Send me the other quote. I'll either beat it or walk you through exactly what's different, so you can compare apples to apples. Even if you don't book with me, I'm happy to help you figure out what you actually need." } },
+      { "@type": "Question", "name": "Are you insured?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. I carry liability insurance and can provide a certificate of insurance (COI) for your venue. My gear is insured too." } },
+      { "@type": "Question", "name": "Are there any surprise costs?", "acceptedAnswer": { "@type": "Answer", "text": "No. We go over everything before you book, from speakers and mics to lighting, so you know exactly what's included. If something isn't needed, like subwoofers at a quiet dinner, we'll leave it out. Every event has something unique, and we plan around it ahead of time." } }
     ]
   }
   </script>
@@ -60,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261019" />
+  <link rel="stylesheet" href="/styles.css?v=20261020" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
@@ -193,22 +199,66 @@
     <div class="section-inner">
       <h2>Good questions. Quick answers.</h2>
       <div class="faq-grid">
-        <div class="faq-item">
-          <p class="faq-q">What's included in a package?</p>
-          <p class="faq-a">Me as your DJ, music planning, MC support, professional sound and standard lighting appropriate for the event. We'll confirm the setup and schedule together before you book.</p>
-        </div>
-        <div class="faq-item">
-          <p class="faq-q">Can we customize a package?</p>
-          <p class="faq-a">Absolutely. Whether it's a reception, a company party or a wedding with multiple spaces, I'll help plan the sound, music and equipment around your event. If we need something I don't already own, we can look at rental options and include the details in your quote.</p>
-        </div>
-        <div class="faq-item">
-          <p class="faq-q">Do you travel outside Denver?</p>
-          <p class="faq-a">Yes. I DJ weddings and events across Colorado and beyond. We'll discuss any travel details in your quote before you book.</p>
-        </div>
-        <div class="faq-item">
-          <p class="faq-q">Can you handle both our ceremony and reception?</p>
-          <p class="faq-a">Yes. Full Experience is designed for ceremony-to-reception coverage. I'll go over the venue, microphones and sound setup with you so everything is planned ahead of time.</p>
-        </div>
+        <details class="faq-item" open>
+          <summary class="faq-q">What's included in a package?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">Me as your DJ, music planning, MC support, professional sound and standard lighting appropriate for the event. We'll confirm the setup and schedule together before you book.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Can we customize a package?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">Absolutely. Whether it's a reception, a company party or a wedding with multiple spaces, I'll help plan the sound, music and equipment around your event. If we need something I don't already own, we can look at rental options and include the details in your quote.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Do you travel outside Denver?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">Yes. I DJ weddings and events across Colorado and beyond. We'll discuss any travel details in your quote before you book.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Can you handle both our ceremony and reception?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">Yes. Full Experience is designed for ceremony-to-reception coverage. I'll go over the venue, microphones and sound setup with you so everything is planned ahead of time.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">How much is the deposit?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">50 percent holds your date and is non-refundable. You won't pay anything until we've confirmed the details and signed the contract.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">When is the rest due?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">The remaining balance is due the week of your event.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">What if we want to keep the party going?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">It happens all the time. Overtime is $250 per hour, and you can decide that night. It's written into the contract so there are no surprises.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Do you price match?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">Send me the other quote. I'll either beat it or walk you through exactly what's different, so you can compare apples to apples. Even if you don't book with me, I'm happy to help you figure out what you actually need.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Are you insured?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">Yes. I carry liability insurance and can provide a certificate of insurance (COI) for your venue. My gear is insured too.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary class="faq-q">Are there any surprise costs?</summary>
+          <div class="faq-a-wrap">
+            <p class="faq-a">No. We go over everything before you book, from speakers and mics to lighting, so you know exactly what's included. If something isn't needed, like subwoofers at a quiet dinner, we'll leave it out. Every event has something unique, and we plan around it ahead of time.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -262,7 +312,7 @@
 </div>
 <!-- /PARTIAL:FOOTER -->
 
-  <script src="/script.js?v=20261019"></script>
+  <script src="/script.js?v=20261020"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
