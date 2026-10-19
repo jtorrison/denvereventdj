@@ -6,8 +6,8 @@
   --surface:  #f1ece3;
   --surface2: #e8e0d2;
   --border:   #ddd3c1;
-  --text:     #2a2420;
-  --muted:    #5f574c;
+  --text:     #1a1512;
+  --muted:    #473f35;
   --gold:     #8a6a2e;  /* text-safe gold: eyebrows, links, icons */
   --gold-btn: #c89b4a;  /* button/phone-bar backgrounds, paired with --text */
   --gold-lt:  #d6ae66;  /* hover shade for gold-btn backgrounds */
@@ -25,7 +25,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -380,12 +380,24 @@ nav {
   line-height: 1;
 }
 .stat-label {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
   text-align: center;
 }
+
+.stat-stars { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.1em; line-height: 1; }
+.stat-google-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.google-g { flex-shrink: 0; }
 
 .proof-quote {
   text-align: center;
@@ -395,6 +407,8 @@ nav {
 }
 .proof-quote p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.5rem; color: var(--text); margin-bottom: 0.75rem; }
 .proof-quote cite { font-style: normal; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); }
+
+.proof-quote-lg p { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 600; line-height: 1.25; }
 
 .proof-photo { margin-top: 0; }
 .proof-photo img, .proof-photo video,
@@ -597,6 +611,20 @@ nav {
   background: var(--surface2);
 }
 
+.google-reviews-link { text-align: center; margin-top: 2.5rem; }
+.google-reviews-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.google-reviews-link a:hover { color: var(--gold); border-color: var(--gold); }
+
 .review-stars { color: var(--gold); font-size: 1rem; letter-spacing: 0.1em; }
 .review-text { font-size: 0.95rem; color: var(--text); line-height: 1.8; font-style: italic; flex: 1; }
 .review-author { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--gold); text-transform: uppercase; }
@@ -676,9 +704,14 @@ nav {
 }
 .media-row .media-row-media.media-row-vertical { max-width: 320px; margin: 0 auto; }
 .media-row .media-row-media.media-row-vertical video { aspect-ratio: 9/16; }
+.media-row .media-row-media.media-row-vertical img { aspect-ratio: 3/4; }
 @media (max-width: 900px) {
   .media-row { grid-template-columns: 1fr; gap: 2rem; }
   .media-row .media-row-media.media-row-vertical { max-width: 280px; }
+  /* Rows with media first on desktop still read text, then media on
+     mobile — the brief, not the photo, comes first on a small screen. */
+  .media-row.media-row-reverse .media-row-text { order: 1; }
+  .media-row.media-row-reverse .media-row-media { order: 2; }
 }
 
 /* ── Vertical pair (two tall clips/photos side by side at a moderate
@@ -711,6 +744,8 @@ nav {
 .section-inner.text-centered .hero-actions { justify-content: center; }
 .section-inner.text-centered .steps-list { text-align: left; }
 .section-inner.text-centered .about-socials { justify-content: center; }
+.section-inner.text-centered .booking-form-wrap,
+.section-inner.text-centered .booking-aside { text-align: left; }
 
 /* ── Audio / Video Player (custom edit, performance clip) ────────── */
 .media-player {
@@ -801,7 +836,7 @@ input, select, textarea {
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   padding: 0.85rem 1rem;
   width: 100%;
   outline: none;
@@ -1018,7 +1053,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); }
   .hero-content, .section-inner, .hero-light-inner { padding-left: 1.25rem; padding-right: 1.25rem; }
   .stat-item { padding: 0.85rem 0.35rem; }
   .stat-num { font-size: 1.3rem; }
-  .stat-label { font-size: 0.58rem; letter-spacing: 0.03em; }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.03em; }
   .services-grid { grid-template-columns: 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
