@@ -23,14 +23,15 @@ PAIRS = [
     ("body text on bg",            "--text",  "--bg",       "normal"),
     ("muted text on bg",           "--muted", "--bg",       "normal"),
     ("muted text on surface",      "--muted", "--surface",  "normal"),
-    ("gold eyebrow on bg",         "--gold",  "--bg",       "large"),
-    ("gold eyebrow on surface",    "--gold",  "--surface",  "large"),
+    ("gold text on bg",            "--gold",  "--bg",       "normal"),
+    ("gold text on surface",       "--gold",  "--surface",  "normal"),
     ("btn-primary text on gold",   "--text",  "--gold-btn", "large"),
     ("phone-bar text on gold-btn", "--text",  "--gold-btn", "normal"),
     ("text on surface",            "--text",  "--surface",  "normal"),
     ("text on surface2",           "--text",  "--surface2", "normal"),
     ("deep gold text on surface",  "--gold-deep", "--surface",  "normal"),
     ("deep gold text on surface2", "--gold-deep", "--surface2", "normal"),
+    ("hero-light eyebrow (small caps) on surface", "--gold-deep", "--surface", "normal"),
 ]
 
 THRESHOLDS = {"normal": 4.5, "large": 3.0}

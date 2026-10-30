@@ -8,7 +8,7 @@
   --border:   #ddd3c1;
   --text:     #1a1512;
   --muted:    #473f35;
-  --gold:     #8a6a2e;  /* text-safe gold: eyebrows, links, icons */
+  --gold:     #846528;  /* text-safe gold: eyebrows, links, icons (4.5:1+ on --bg and --surface) */
   --gold-btn: #c89b4a;  /* button/phone-bar backgrounds, paired with --text */
   --gold-lt:  #d6ae66;  /* hover shade for gold-btn backgrounds */
   --gold-deep: #7d5f28; /* small gold text on --surface/--surface2 (4.5:1+) */
@@ -307,7 +307,7 @@ nav {
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-deep); /* small text on --surface: needs 4.5:1 */
   margin-bottom: 1rem;
 }
 .hero-light h1 {
@@ -908,7 +908,7 @@ select option { background: var(--bg); }
 textarea { resize: vertical; min-height: 120px; }
 
 .form-note { font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 0.5rem; }
-.form-note a { color: var(--gold); }
+.form-note a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
 
 .form-success {
   display: none;
