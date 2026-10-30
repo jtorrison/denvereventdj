@@ -25,9 +25,10 @@ that touches pricing or offers. None of the three are ever committed.
   region, it'll just get overwritten.
 - **Adding something to the nav is always a manual edit to
   `partials/header.html`, and always waits for Josh's OK — no exceptions,
-  even when a page that would belong there already exists.** Nav v1
-  (Phase 1): Weddings, Pricing, About, Contact only — no Corporate &
-  Parties, Stories, Reviews, Tools, Mixes, or FAQ until each is approved.
+  even when a page that would belong there already exists.** Nav v2
+  (approved Oct 30, 2026): Weddings, Pricing, Stories, Guides, About,
+  Contact. Josh wants the menu kept short; Corporate Events, Parties,
+  Venues, FAQ and Privacy live in the footer and in-page links.
 - The contact form posts to Formspree over `fetch` (not a plain HTML POST)
   so GA4's `generate_lead` event fires only on a genuinely successful
   submit, never on click and never on a Formspree-side rejection — see
@@ -112,6 +113,15 @@ page and a copy-and-fill template:
   near the top of the page. Edit the marker, run `scripts/build.py`, both
   update together — never hand-edit the visible date or the schema field
   directly, they'll drift.
+
+## Open content work
+
+The content backlog (every planned page, grouped into buckets, with the
+facts already known, photos on hand and the questions Josh still needs to
+answer) lives in `_docs/content-backlog.md` (local-only, gitignored like
+the rest of `_docs/`). When Josh asks "what are the open items?", read it
+first, then `_docs/site-plan.md` and `_docs/content-roadmap.md`. When a
+page ships, move its entry to the "Shipped" section of the backlog.
 
 ## Publishing from `_inbox`
 
