@@ -37,7 +37,7 @@ EXCLUDE_DIR_NAMES = {".git", ".github", "partials", "scripts", "_inbox", "_docs"
 # Pages from _docs/site-plan.md's page map that aren't built yet. Referencing
 # one of these today is expected, not a bug.
 PLANNED_PAGES = {
-    "/mixes/", "/reviews/", "/venues/denver/",
+    "/mixes/", "/venues/denver/",
 }
 
 SKIP_SCHEMES = ("mailto:", "tel:", "javascript:")

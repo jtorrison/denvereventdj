@@ -223,11 +223,11 @@ python3 scripts/check_contrast.py  # WCAG AA
 CI (`.github/workflows/checks.yml`) runs all of the above on every push,
 plus Lighthouse (mobile) on the homepage and the first entry of each
 content type. **Accessibility ≥90 is a hard fail. Performance ≥90 is still
-a warning only** in `.lighthouserc.json` — the Phase 1 redesign (light
-mode, the 5 core pages) has shipped, but performance hasn't been
-re-measured and tuned against it yet (large hero photos, Google Fonts,
-etc.). Flip `categories:performance` from `"warn"` to `"error"` once
-that's done, not automatically just because Phase 1 shipped. On push to
+a warning only** in `.lighthouserc.json`. Oct 30, 2026: responsive images,
+self-hosted fonts and a phone-sized homepage hero brought local mobile
+scores to roughly 86–90 (home) and 88–98 (other pages). Watch a few CI
+runs; flip `categories:performance` from `"warn"` to `"error"` only once
+the homepage clears 90 reliably in CI. On push to
 `main`, a final job submits every sitemap URL to IndexNow.
 
 ## Responsive images
@@ -252,6 +252,26 @@ LCP element) also gets `fetchpriority="high"` and is never
 background hero in `<head>`. The nav logo is `assets/logo-black-nav.png`
 (108px tall, for 3x screens); keep the full-size `logo-black.png` for
 anything that needs a big logo.
+
+The homepage hero is a CSS background, so `srcset` can't help it. Phones
+(≤700px) get a portrait crop from `assets/photos/crops/` instead (they
+only show the middle third of the wide photo anyway), and `index.html`
+preloads each version with a matching `media` attribute. If you change
+the hero photo, make a new 1000px-wide center crop and update both the
+CSS and the two preload tags.
+
+## Fonts
+
+Inter (300, 400, 500) and Cormorant Garamond (300, 400, 600, and 300/400
+italic) are self-hosted from `assets/fonts/` (latin subset, from
+Fontsource, SIL Open Font License, license files alongside). The
+`@font-face` rules are at the top of `styles.css` with
+`font-display: swap`, and every page preloads Inter 400 and Cormorant 400
+in `<head>`. There is no Google Fonts request, which removes a
+render-blocking third-party stylesheet and keeps visitors' IPs away from
+Google. Need a new weight? Add the latin `.woff2` from the
+`@fontsource/inter` or `@fontsource/cormorant-garamond` npm package and a
+matching `@font-face` rule, and bump the `?v=` cache version.
 
 ## Raw photos and unpublished content
 
