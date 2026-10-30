@@ -35,7 +35,14 @@ that touches pricing or offers. None of the three are ever committed.
   the `.booking-form-wrap` handler in `script.js`. Every page using the
   form needs a `.booking-form-wrap` → `.form-success` / `.form-error`
   pair; `scripts/check_seo.py` doesn't check this, so review by eye when
-  touching it.
+  touching it. If the background submit fails (Formspree rejects it, often
+  because its reCAPTCHA spam check can't run over fetch, or the network
+  drops), `script.js` fires a GA4 `form_error` event with the reason and
+  then submits the form once the classic way, so a lead is never lost.
+  The form also carries Formspree's `_gotcha` honeypot field. Leads stopped
+  arriving after the Oct 14, 2026 switch to fetch; if `form_error` events
+  show a captcha reason, turn off reCAPTCHA in the Formspree form settings
+  (the honeypot still filters bots).
 - All CSS, JS, and image paths are root-relative (`/styles.css`,
   `/script.js`, `/assets/...`), never page-relative (`assets/...`,
   `../assets/...`). Pages live in subfolders (`/weddings/index.html`,
