@@ -141,9 +141,11 @@ the same folder.
 1. Read the front matter and markdown content.
 2. Copy `partials/<type>-template.html` to `<type>/<slug>/index.html`,
    fill in every `{{TOKEN}}`.
-3. Convert any photos in that `_inbox` folder to WebP into `assets/`
-   (resize to ~2000px wide max, aim under 200KB — see Phase 0 for the
-   `cwebp` pattern).
+3. Convert any photos in that `_inbox` folder to WebP into
+   `assets/photos/` (resize to ~2000px wide max, aim under 200KB — see
+   Phase 0 for the `cwebp` pattern), then run
+   `python3 scripts/make_image_sizes.py` to make the smaller copies (see
+   "Responsive images" below).
 4. Add the entry's card to `<type>/index.html`.
 5. Update any `related` links it points at, or that should point back at
    it.
@@ -208,7 +210,8 @@ give a subpage a full-bleed photo hero like Home's.
 
 Run `python3 scripts/build.py` (updates partial-injected regions,
 `sitemap.xml`, `llms.txt`, and story/guide "Updated" dates/schema), then
-the checker suite:
+the checker suite (build.py also syncs image `srcset`s, see "Responsive
+images"):
 
 ```
 python3 scripts/build.py --check   # confirms the build above is current
@@ -226,6 +229,29 @@ re-measured and tuned against it yet (large hero photos, Google Fonts,
 etc.). Flip `categories:performance` from `"warn"` to `"error"` once
 that's done, not automatically just because Phase 1 shipped. On push to
 `main`, a final job submits every sitemap URL to IndexNow.
+
+## Responsive images
+
+Every photo in `assets/photos/` has smaller copies in
+`assets/photos/sizes/` (`<name>-480w.webp`, `-800w`, `-1200w`), made by
+`python3 scripts/make_image_sizes.py` (Pillow, or `cwebp` as a fallback;
+safe to re-run, it only makes what's missing). `scripts/build.py` then
+writes a matching `srcset` onto every `<img>` that uses the photo, so
+never hand-edit a `srcset`. The `sizes` attribute is authored in the HTML
+because it depends on the layout:
+
+- Full-width hero or section photo:
+  `sizes="(max-width: 1100px) calc(100vw - 40px), 1020px"`
+- Card image: `sizes="(max-width: 760px) calc(100vw - 40px), 360px"`
+- Anything else gets build.py's default (a column up to 720px wide).
+
+The first photo on a page (the `.hero-light-photo` image, which is the
+LCP element) also gets `fetchpriority="high"` and is never
+`loading="lazy"`. Every other photo below the fold keeps
+`loading="lazy" decoding="async"`. The homepage preloads its CSS
+background hero in `<head>`. The nav logo is `assets/logo-black-nav.png`
+(108px tall, for 3x screens); keep the full-size `logo-black.png` for
+anything that needs a big logo.
 
 ## Raw photos and unpublished content
 
