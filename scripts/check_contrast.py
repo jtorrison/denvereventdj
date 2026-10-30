@@ -29,6 +29,8 @@ PAIRS = [
     ("phone-bar text on gold-btn", "--text",  "--gold-btn", "normal"),
     ("text on surface",            "--text",  "--surface",  "normal"),
     ("text on surface2",           "--text",  "--surface2", "normal"),
+    ("deep gold text on surface",  "--gold-deep", "--surface",  "normal"),
+    ("deep gold text on surface2", "--gold-deep", "--surface2", "normal"),
 ]
 
 THRESHOLDS = {"normal": 4.5, "large": 3.0}
