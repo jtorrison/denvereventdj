@@ -1179,6 +1179,10 @@ footer { background: var(--surface); border-top: 1px solid var(--border); }
 .prose figure img, .prose figure video { width: 100%; height: auto; display: block; }
 .prose figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
 .prose .faq-grid { grid-template-columns: 1fr; margin-top: 1rem; }
+.prose table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.75rem; font-size: 0.98rem; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem 0.6rem 0; border-bottom: 1px solid var(--border); color: var(--text); line-height: 1.5; }
+.prose thead th { font-weight: 600; border-bottom: 2px solid var(--border); }
+.prose tbody td:first-child { font-weight: 500; width: 42%; }
 .callout {
   background: var(--surface);
   border-left: 3px solid var(--gold-btn);
