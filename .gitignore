@@ -25,3 +25,6 @@
 # Local Browser-pane preview server config — machine-specific, not
 # needed for the published site or by other contributors.
 /.claude/
+
+# Python bytecode (scripts/make_image_sizes.py imports build.py)
+__pycache__/

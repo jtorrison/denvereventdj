@@ -13,6 +13,11 @@ otherwise, so this does them mechanically instead:
   4. Sync each story/guide page's visible "Updated <Month Year>" text and
      its Article schema's dateModified with its own
      <!-- updated: YYYY-MM-DD --> marker.
+  5. Give every <img> that uses a photo from assets/photos/ a srcset
+     listing the smaller copies in assets/photos/sizes/ (made by
+     scripts/make_image_sizes.py) plus the original, so phones download a
+     small file. A tag with no sizes attribute gets a default one. Photos
+     without smaller copies are left alone.
 
 Usage:
   python3 scripts/build.py          # write the changes
@@ -42,6 +47,13 @@ DATE_MODIFIED_RE = re.compile(r'("dateModified":\s*")[^"]*(")')
 UPDATED_TEXT_RE = re.compile(r"(<span data-updated-text>)[^<]*(</span>)")
 NOINDEX_RE = re.compile(r'<meta\s+name="robots"\s+content="noindex', re.IGNORECASE)
 TITLE_RE = re.compile(r"<title>(.*?)</title>", re.DOTALL)
+IMG_TAG_RE = re.compile(r"<img\b[^>]*>", re.DOTALL)
+PHOTO_SRC_RE = re.compile(r'\ssrc="(/assets/photos/([^"/]+)\.webp)"')
+SRCSET_RE = re.compile(r'\ssrcset="[^"]*"')
+SIZE_FILE_RE = re.compile(r"-(\d+)w\.webp$")
+# Most photos sit in a column up to 720px wide. Full-width photos and cards
+# set their own sizes attribute in the HTML.
+DEFAULT_SIZES = "(max-width: 760px) calc(100vw - 40px), 720px"
 
 
 def discover_pages():
@@ -86,6 +98,61 @@ def sync_updated_date(text):
     text = DATE_MODIFIED_RE.sub(rf"\g<1>{iso_date}\g<2>", text)
     text = UPDATED_TEXT_RE.sub(rf"\g<1>{month_year}\g<2>", text)
     return text
+
+
+def webp_size(path):
+    """(width, height) of a .webp file from its header, or None."""
+    data = Path(path).read_bytes()[:30]
+    if len(data) < 30 or data[:4] != b"RIFF" or data[8:12] != b"WEBP":
+        return None
+    chunk = data[12:16]
+    if chunk == b"VP8X":
+        return (int.from_bytes(data[24:27], "little") + 1, int.from_bytes(data[27:30], "little") + 1)
+    if chunk == b"VP8 ":
+        return (int.from_bytes(data[26:28], "little") & 0x3FFF, int.from_bytes(data[28:30], "little") & 0x3FFF)
+    if chunk == b"VP8L":
+        bits = int.from_bytes(data[21:25], "little")
+        return ((bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1)
+    return None
+
+
+_srcset_cache = {}
+
+
+def srcset_for(src, stem):
+    if stem not in _srcset_cache:
+        sizes_dir = ROOT / "assets" / "photos" / "sizes"
+        variants = []
+        for f in sizes_dir.glob(f"{stem}-*w.webp") if sizes_dir.is_dir() else []:
+            m = SIZE_FILE_RE.search(f.name)
+            if m and f.name == f"{stem}-{m.group(1)}w.webp":
+                variants.append((int(m.group(1)), f"/assets/photos/sizes/{f.name}"))
+        original = ROOT / src.lstrip("/")
+        dims = webp_size(original) if original.exists() else None
+        if not variants or not dims:
+            _srcset_cache[stem] = None
+        else:
+            variants.sort()
+            parts = [f"{url} {w}w" for w, url in variants] + [f"{src} {dims[0]}w"]
+            _srcset_cache[stem] = ", ".join(parts)
+    return _srcset_cache[stem]
+
+
+def sync_srcsets(text):
+    def fix(m):
+        tag = m.group(0)
+        if not PHOTO_SRC_RE.search(tag):
+            return tag
+        tag = SRCSET_RE.sub("", tag)
+        src_m = PHOTO_SRC_RE.search(tag)
+        srcset = srcset_for(src_m.group(1), src_m.group(2))
+        if not srcset:
+            return tag
+        insert = f' srcset="{srcset}"'
+        if " sizes=" not in tag:
+            insert += f' sizes="{DEFAULT_SIZES}"'
+        return tag[:src_m.end()] + insert + tag[src_m.end():]
+    return IMG_TAG_RE.sub(fix, text)
 
 
 def url_for(page_path):
@@ -184,6 +251,7 @@ def main():
         original = page.read_text(encoding="utf-8")
         updated = inject_partials(original, partial_contents)
         updated = sync_updated_date(updated)
+        updated = sync_srcsets(updated)
         if updated != original:
             changed_files.append(page.relative_to(ROOT))
             if not check_mode:
