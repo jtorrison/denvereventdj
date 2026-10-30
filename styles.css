@@ -11,6 +11,7 @@
   --gold:     #8a6a2e;  /* text-safe gold: eyebrows, links, icons */
   --gold-btn: #c89b4a;  /* button/phone-bar backgrounds, paired with --text */
   --gold-lt:  #d6ae66;  /* hover shade for gold-btn backgrounds */
+  --gold-deep: #7d5f28; /* small gold text on --surface/--surface2 (4.5:1+) */
   --max-w:    1100px;
 }
 
@@ -1139,3 +1140,153 @@ footer { background: var(--surface); border-top: 1px solid var(--border); }
     );
   }
 }
+
+/* ── Long-form content: guides, stories, FAQ hub, venue pages ───────────
+   Added Oct 30, 2026 for the content push. Uses only existing palette
+   vars and pairs already covered by scripts/check_contrast.py. */
+.article-lede { font-size: 1.15rem; max-width: 680px; }
+.byline { font-size: 0.85rem; color: var(--muted); margin: -1rem 0 1.75rem; }
+.prose { max-width: 720px; }
+.prose > p, .prose li { color: var(--text); font-size: 1.05rem; line-height: 1.75; }
+.prose > p { margin-bottom: 1.25rem; }
+.prose h2 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); margin: 3rem 0 1rem; scroll-margin-top: 1.5rem; }
+.prose h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 2rem 0 0.5rem;
+  scroll-margin-top: 1.5rem;
+}
+.prose ul, .prose ol { margin: 0 0 1.5rem 1.4rem; }
+.prose li { margin-bottom: 0.55rem; padding-left: 0.25rem; }
+.prose li::marker { color: var(--gold); }
+.prose p a, .prose li a {
+  color: var(--gold);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.callout a, .story-facts a {
+  color: var(--gold-deep);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose p a:hover, .prose li a:hover, .callout a:hover, .story-facts a:hover { color: var(--text); }
+.prose strong { font-weight: 600; }
+.prose figure { margin: 2rem 0; }
+.prose figure img, .prose figure video { width: 100%; height: auto; display: block; }
+.prose figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+.prose .faq-grid { grid-template-columns: 1fr; margin-top: 1rem; }
+.callout {
+  background: var(--surface);
+  border-left: 3px solid var(--gold-btn);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+}
+.callout p { color: var(--text); font-size: 1rem; margin-bottom: 0.75rem; }
+.callout p:last-child { margin-bottom: 0; }
+.callout-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem 0.75rem;
+  margin: 0 0 2.5rem;
+}
+.toc-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.toc ol { margin: 0 0 0.5rem 1.25rem; }
+.toc li { font-size: 0.98rem; margin-bottom: 0.4rem; color: var(--text); }
+.toc a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.toc a:hover { color: var(--gold); }
+.cta-band {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  margin: 3rem 0 2rem;
+}
+.cta-band-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.cta-band p { color: var(--muted); font-size: 1rem; margin-bottom: 1.25rem; }
+.cta-band .hero-actions { margin: 0; }
+.related { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 2rem; }
+.related-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 0.5rem; padding: 0; }
+.related a { color: var(--text); font-weight: 500; text-decoration: underline; text-decoration-color: var(--gold-btn); text-underline-offset: 3px; }
+.related a:hover { color: var(--gold); }
+.story-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 2.5rem;
+}
+.story-facts dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+.story-facts dd { margin: 0.15rem 0 0; font-size: 0.98rem; color: var(--text); }
+.media-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.media-pair img, .media-pair video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.media-pair.media-pair-vertical { max-width: 520px; }
+a.card { transition: border-color 0.2s; color: var(--text); }
+a.card:hover { border-color: var(--gold); }
+.card-img { width: calc(100% + 4rem); max-width: none; margin: -2rem -2rem 0.5rem; aspect-ratio: 3 / 2; object-fit: cover; }
+.card-more {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+.vendor-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin: 1.5rem 0 2rem; }
+.vendor { background: var(--surface); border: 1px solid var(--border); padding: 1.25rem 1.5rem; }
+.vendor-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 600; color: var(--text); }
+.vendor-type {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.vendor p { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.5rem; }
+.vendor a { color: var(--gold-deep); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; font-size: 0.9rem; }
+@media (max-width: 700px) {
+  .prose h2 { margin-top: 2.25rem; }
+  .cta-band { padding: 1.5rem 1.25rem; }
+  .media-pair { grid-template-columns: 1fr; }
+  .card-img { width: calc(100% + 4rem); }
+}
+.prose figure.figure-vertical { max-width: 420px; }

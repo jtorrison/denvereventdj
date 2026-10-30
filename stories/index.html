@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stories | Denver Event DJ</title>
-  <meta name="description" content="Real weddings and events DJed by Denver Event DJ — what happened, what we did, and how it turned out." />
-  <meta name="robots" content="noindex, follow" />
+  <meta name="description" content="Real weddings and events DJed by Denver Event DJ: what happened, what changed and how it turned out." />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://denvereventdj.com/stories/" />
   <link rel="icon" href="/assets/favicon.png" />
 
   <meta property="og:title" content="Stories | Denver Event DJ" />
-  <meta property="og:description" content="Real weddings and events DJed by Denver Event DJ — what happened, what we did, and how it turned out." />
+  <meta property="og:description" content="Real weddings and events DJed by Denver Event DJ: what happened, what changed and how it turned out." />
   <meta property="og:url" content="https://denvereventdj.com/stories/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://denvereventdj.com/assets/og-image.jpg" />
@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261020" />
+  <link rel="stylesheet" href="/styles.css?v=20261030" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
@@ -60,6 +60,8 @@
   <div class="nav-links">
     <a href="/weddings/">Weddings</a>
     <a href="/pricing/">Pricing</a>
+    <a href="/stories/">Stories</a>
+    <a href="/guides/">Guides</a>
     <a href="/about/">About</a>
     <a href="/contact/">Contact</a>
     <a href="/contact/" class="btn-nav" data-ga-event="book_a_call_click" data-ga-label="nav">Check My Date</a>
@@ -69,6 +71,8 @@
 <div class="nav-mobile" id="navMobile">
   <a href="/weddings/" onclick="toggleNav()">Weddings</a>
   <a href="/pricing/" onclick="toggleNav()">Pricing</a>
+  <a href="/stories/" onclick="toggleNav()">Stories</a>
+  <a href="/guides/" onclick="toggleNav()">Guides</a>
   <a href="/about/" onclick="toggleNav()">About</a>
   <a href="/contact/" onclick="toggleNav()">Contact</a>
   <a href="/contact/" class="btn-nav" onclick="toggleNav()" data-ga-event="book_a_call_click" data-ga-label="nav_mobile">Check My Date</a>
@@ -82,9 +86,23 @@
       <h1>Stories</h1>
       <p class="section-sub">Something happened, and we handled it. Real
         events, what changed, and how it turned out.</p>
-      <div class="empty-state">
-        Stories are coming soon.
+      <div class="cards-grid">
+        <a class="card" href="/stories/crestview-ranch-grand-lake/">
+          <img class="card-img" src="/assets/photos/2026-06-20_grand-lake_lindeman_josh-with-bride-and-bridesmaids.webp" alt="Josh with the bride and bridesmaids at Crestview Ranch" loading="lazy" decoding="async" />
+          <p class="card-date">Wedding &middot; Grand Lake &middot; Jun 2026</p>
+          <h3>A windstorm four hours before the wedding at Crestview Ranch</h3>
+          <p>No power at the ceremony site, a noon windstorm and three spaces to cover with one set of speakers. Then the party of their lives.</p>
+          <span class="card-more">Read the story &rarr;</span>
+        </a>
+        <a class="card" href="/stories/boulder-flower-farm/">
+          <img class="card-img" src="/assets/photos/2026-08-29_boulder-flower-farm_krawczyk_sunset-over-tent.webp" alt="Sunset over the reception tent at Boulder Flower Farm" loading="lazy" decoding="async" />
+          <p class="card-date">Wedding &middot; Longmont &middot; Aug 2026</p>
+          <h3>A ceremony added two weeks out at Boulder Flower Farm</h3>
+          <p>Battery-powered ceremony sound, a live band handoff and a hard 10 PM stop at Jono and Sloane's wedding.</p>
+          <span class="card-more">Read the story &rarr;</span>
+        </a>
       </div>
+      <p class="section-sub" style="margin-top:2.5rem;">More real weddings and events are on the way. In the meantime, see <a href="/venues/" style="color:var(--gold);text-decoration:underline;">the venues I've played</a> or <a href="/contact/" style="color:var(--gold);text-decoration:underline;">tell me about yours</a>.</p>
     </div>
   </section>
 
@@ -98,7 +116,14 @@
     </div>
     <div class="footer-links">
       <a href="/weddings/">Weddings</a>
+      <a href="/corporate-events/">Corporate Events</a>
+      <a href="/parties/">Parties &amp; Campus</a>
       <a href="/pricing/">Pricing</a>
+      <a href="/stories/">Stories</a>
+      <a href="/guides/">Guides</a>
+      <a href="/tools/">Free Tools</a>
+      <a href="/venues/">Venues</a>
+      <a href="/faq/">FAQ</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
     </div>
@@ -114,7 +139,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; <span id="year"></span> Denver Event DJ &nbsp;·&nbsp; Denver, Colorado &nbsp;·&nbsp; <a href="#top">Back to top &uarr;</a></p>
+    <p>&copy; <span id="year"></span> Denver Event DJ &nbsp;·&nbsp; Denver, Colorado &nbsp;·&nbsp; <a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="#top">Back to top &uarr;</a></p>
   </div>
 </footer>
 
@@ -124,7 +149,7 @@
 </div>
 <!-- /PARTIAL:FOOTER -->
 
-  <script src="/script.js?v=20261020"></script>
+  <script src="/script.js?v=20261030"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

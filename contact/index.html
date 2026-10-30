@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261020" />
+  <link rel="stylesheet" href="/styles.css?v=20261030" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
@@ -60,6 +60,8 @@
   <div class="nav-links">
     <a href="/weddings/">Weddings</a>
     <a href="/pricing/">Pricing</a>
+    <a href="/stories/">Stories</a>
+    <a href="/guides/">Guides</a>
     <a href="/about/">About</a>
     <a href="/contact/">Contact</a>
     <a href="/contact/" class="btn-nav" data-ga-event="book_a_call_click" data-ga-label="nav">Check My Date</a>
@@ -69,6 +71,8 @@
 <div class="nav-mobile" id="navMobile">
   <a href="/weddings/" onclick="toggleNav()">Weddings</a>
   <a href="/pricing/" onclick="toggleNav()">Pricing</a>
+  <a href="/stories/" onclick="toggleNav()">Stories</a>
+  <a href="/guides/" onclick="toggleNav()">Guides</a>
   <a href="/about/" onclick="toggleNav()">About</a>
   <a href="/contact/" onclick="toggleNav()">Contact</a>
   <a href="/contact/" class="btn-nav" onclick="toggleNav()" data-ga-event="book_a_call_click" data-ga-label="nav_mobile">Check My Date</a>
@@ -162,6 +166,8 @@
       <label for="message">Tell us about your event</label>
       <textarea id="message" name="message" rows="4" placeholder="What do you want the night to feel like?"></textarea>
     </div>
+    <!-- Honeypot for Formspree's spam filter: real people never see or fill it -->
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
     <button type="submit" class="btn-primary btn-full">Send My Request &rarr;</button>
     <p class="form-note">Or call / text anytime: <a href="tel:7204455369" data-ga-event="call_tap" data-ga-label="contact_form_note">(720) 445-5369</a></p>
     <p class="form-error" role="alert">Something went wrong sending that — please call or text <a href="tel:7204455369">(720) 445-5369</a> instead.</p>
@@ -223,7 +229,14 @@
     </div>
     <div class="footer-links">
       <a href="/weddings/">Weddings</a>
+      <a href="/corporate-events/">Corporate Events</a>
+      <a href="/parties/">Parties &amp; Campus</a>
       <a href="/pricing/">Pricing</a>
+      <a href="/stories/">Stories</a>
+      <a href="/guides/">Guides</a>
+      <a href="/tools/">Free Tools</a>
+      <a href="/venues/">Venues</a>
+      <a href="/faq/">FAQ</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
     </div>
@@ -239,7 +252,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; <span id="year"></span> Denver Event DJ &nbsp;·&nbsp; Denver, Colorado &nbsp;·&nbsp; <a href="#top">Back to top &uarr;</a></p>
+    <p>&copy; <span id="year"></span> Denver Event DJ &nbsp;·&nbsp; Denver, Colorado &nbsp;·&nbsp; <a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="#top">Back to top &uarr;</a></p>
   </div>
 </footer>
 
@@ -249,7 +262,7 @@
 </div>
 <!-- /PARTIAL:FOOTER -->
 
-  <script src="/script.js?v=20261020"></script>
+  <script src="/script.js?v=20261030"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

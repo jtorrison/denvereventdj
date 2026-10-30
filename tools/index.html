@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tools | Denver Event DJ</title>
-  <meta name="description" content="Free interactive tools for planning your Denver wedding or event — no signup, instant results." />
-  <meta name="robots" content="noindex, follow" />
+  <meta name="description" content="Free tools for planning your Denver wedding or event: a wedding timeline builder and a processional song calculator. No signup, instant results." />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://denvereventdj.com/tools/" />
   <link rel="icon" href="/assets/favicon.png" />
 
   <meta property="og:title" content="Tools | Denver Event DJ" />
-  <meta property="og:description" content="Free interactive tools for planning your Denver wedding or event — no signup, instant results." />
+  <meta property="og:description" content="Free tools for planning your Denver wedding or event: a wedding timeline builder and a processional song calculator. No signup, instant results." />
   <meta property="og:url" content="https://denvereventdj.com/tools/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://denvereventdj.com/assets/og-image.jpg" />
@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261020" />
+  <link rel="stylesheet" href="/styles.css?v=20261030" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QXX13HK13B"></script>
@@ -60,6 +60,8 @@
   <div class="nav-links">
     <a href="/weddings/">Weddings</a>
     <a href="/pricing/">Pricing</a>
+    <a href="/stories/">Stories</a>
+    <a href="/guides/">Guides</a>
     <a href="/about/">About</a>
     <a href="/contact/">Contact</a>
     <a href="/contact/" class="btn-nav" data-ga-event="book_a_call_click" data-ga-label="nav">Check My Date</a>
@@ -69,6 +71,8 @@
 <div class="nav-mobile" id="navMobile">
   <a href="/weddings/" onclick="toggleNav()">Weddings</a>
   <a href="/pricing/" onclick="toggleNav()">Pricing</a>
+  <a href="/stories/" onclick="toggleNav()">Stories</a>
+  <a href="/guides/" onclick="toggleNav()">Guides</a>
   <a href="/about/" onclick="toggleNav()">About</a>
   <a href="/contact/" onclick="toggleNav()">Contact</a>
   <a href="/contact/" class="btn-nav" onclick="toggleNav()" data-ga-event="book_a_call_click" data-ga-label="nav_mobile">Check My Date</a>
@@ -80,11 +84,24 @@
     <div class="section-inner">
       <p class="section-eyebrow">Free &amp; Instant</p>
       <h1>Tools</h1>
-      <p class="section-sub">Quick, free tools for planning your event —
-        no signup, instant results.</p>
-      <div class="empty-state">
-        Tools are coming soon.
+      <p class="section-sub">Quick, free tools for planning your event. No signup, instant results.</p>
+      <div class="cards-grid">
+        <a class="card" href="/tools/wedding-timeline-builder/">
+          <img class="card-img" src="/assets/photos/2026-08-29_boulder-flower-farm_krawczyk_candlelit-dinner-tent.webp" alt="Candlelit dinner tables inside the reception tent at Boulder Flower Farm" loading="lazy" decoding="async" />
+          <p class="card-date">Planning</p>
+          <h3>Wedding day timeline builder</h3>
+          <p>Enter your ceremony time, dinner style and end time. Get a full schedule from guest arrival to send-off, ready to print or share.</p>
+          <span class="card-more">Build my timeline &rarr;</span>
+        </a>
+        <a class="card" href="/tools/processional-song-calculator/">
+          <img class="card-img" src="/assets/photos/2026-08-29_boulder-flower-farm_krawczyk_ceremony-aisle.webp" alt="Ceremony aisle with draped trees and wooden chairs at Boulder Flower Farm" loading="lazy" decoding="async" />
+          <p class="card-date">Ceremony</p>
+          <h3>Processional song length calculator</h3>
+          <p>How much music your wedding party and your entrance need, from your aisle length and how many people walk.</p>
+          <span class="card-more">Calculate &rarr;</span>
+        </a>
       </div>
+      <p class="section-sub" style="margin-top:2.5rem;">More tools on the way. Looking for advice instead? See the <a href="/guides/" style="color:var(--gold);text-decoration:underline;">planning guides</a>.</p>
     </div>
   </section>
 
@@ -98,7 +115,14 @@
     </div>
     <div class="footer-links">
       <a href="/weddings/">Weddings</a>
+      <a href="/corporate-events/">Corporate Events</a>
+      <a href="/parties/">Parties &amp; Campus</a>
       <a href="/pricing/">Pricing</a>
+      <a href="/stories/">Stories</a>
+      <a href="/guides/">Guides</a>
+      <a href="/tools/">Free Tools</a>
+      <a href="/venues/">Venues</a>
+      <a href="/faq/">FAQ</a>
       <a href="/about/">About</a>
       <a href="/contact/">Contact</a>
     </div>
@@ -114,7 +138,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; <span id="year"></span> Denver Event DJ &nbsp;·&nbsp; Denver, Colorado &nbsp;·&nbsp; <a href="#top">Back to top &uarr;</a></p>
+    <p>&copy; <span id="year"></span> Denver Event DJ &nbsp;·&nbsp; Denver, Colorado &nbsp;·&nbsp; <a href="/privacy/">Privacy</a> &nbsp;·&nbsp; <a href="#top">Back to top &uarr;</a></p>
   </div>
 </footer>
 
@@ -124,7 +148,7 @@
 </div>
 <!-- /PARTIAL:FOOTER -->
 
-  <script src="/script.js?v=20261020"></script>
+  <script src="/script.js?v=20261030"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

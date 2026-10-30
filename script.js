@@ -94,11 +94,32 @@ document.querySelectorAll('.booking-form-wrap').forEach((wrap) => {
               event_label: form.dataset.gaLabel || 'form',
             });
           }
-        } else {
-          throw new Error('Formspree rejected the submission');
+          return;
         }
+        // Formspree said no (for example its spam check wants a captcha,
+        // which a fetch submission can't show). Read its reason for the
+        // form_error event below.
+        return response.json().catch(() => ({})).then((data) => {
+          const reason = (data && (data.error || (data.errors || []).map((x) => x.message).join('; '))) || '';
+          throw new Error(`HTTP ${response.status} ${reason}`.trim());
+        });
       })
-      .catch(() => {
+      .catch((err) => {
+        if (typeof gtag === 'function') {
+          gtag('event', 'form_error', {
+            event_category: 'engagement',
+            event_label: String((err && err.message) || 'network error').slice(0, 100),
+            transport_type: 'beacon',
+          });
+        }
+        // Never lose a lead: if the background submit failed, send the form
+        // the classic way once. Formspree then shows its own spam check and
+        // thank-you page. (Calling the native submit skips this handler.)
+        if (!form.dataset.fallbackTried) {
+          form.dataset.fallbackTried = '1';
+          HTMLFormElement.prototype.submit.call(form);
+          return;
+        }
         errorBox && errorBox.classList.add('visible');
         if (submitBtn) submitBtn.disabled = false;
       });
