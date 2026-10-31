@@ -4,5 +4,6 @@
 # should stay visible on GitHub but never be fetchable on the live site.
 exclude:
   - CLAUDE.md
+  - HANDOFF.md
   - scripts
   - partials
