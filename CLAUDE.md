@@ -242,7 +242,16 @@ because it depends on the layout:
 
 - Full-width hero or section photo:
   `sizes="(max-width: 1100px) calc(100vw - 40px), 1020px"`
-- Card image: `sizes="(max-width: 760px) calc(100vw - 40px), 360px"`
+- Card image (`.card-img` in a `.cards-grid`: 1 column to 663px, 2 to
+  1027px, then 3):
+  `sizes="(max-width: 663px) calc(100vw - 40px), (max-width: 700px) calc(50vw - 32px), (max-width: 1027px) calc(50vw - 52px), 324px"`
+- Homepage `.service-card` image (`.services-grid`: 1 column to 700px, 2
+  to 959px, then 3):
+  `sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 959px) calc(50vw - 50px), 327px"`
+- Side-by-side `.media-pair` photos in a story:
+  `sizes="(max-width: 760px) calc(100vw - 40px), 360px"`
+- If a grid's column breakpoints change in `styles.css`, re-measure and
+  update these, or the browser picks a file that's too small.
 - Anything else gets build.py's default (a column up to 720px wide).
 
 The first photo on a page (the `.hero-light-photo` image, which is the
