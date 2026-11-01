@@ -1,11 +1,14 @@
 # CLAUDE.md
 
-Repo rules for `denvereventdj.com` (GitHub Pages). Planning context — the
-full site plan and content roadmap — lives in `_docs/site-plan.md` and
-`_docs/content-roadmap.md` (both local-only, gitignored, read them for
-background). Business-sensitive rules (discounts, internal policy) live in
-`_docs/internal-notes.md` (also local-only) — read it before writing copy
-that touches pricing or offers. None of the three are ever committed.
+Repo rules for `denvereventdj.com` (GitHub Pages). For a plain-English
+overview (accounts, backups, the weekly routine, setting up on a new
+machine), read `HANDOFF.md` first. Planning context lives in
+`_docs/content-backlog.md` (what's live, what's next, open questions for
+Josh) and `_docs/site-plan.md` (the original site plan); both are
+local-only and gitignored. Business-sensitive rules (discounts, internal
+policy) live in `_docs/internal-notes.md` (also local-only) — read it
+before writing copy that touches pricing or offers. Nothing in `_docs/`
+is ever committed.
 
 ## Repo structure
 
@@ -40,7 +43,8 @@ that touches pricing or offers. None of the three are ever committed.
   drops), `script.js` fires a GA4 `form_error` event with the reason and
   then submits the form once the classic way, so a lead is never lost.
   The form also carries Formspree's `_gotcha` honeypot field. Leads stopped
-  arriving after the Oct 14, 2026 switch to fetch; if `form_error` events
+  arriving after the Oct 14, 2026 switch to fetch; the fallback shipped
+  Oct 30, 2026, and a phone test that day arrived. If `form_error` events
   show a captcha reason, turn off reCAPTCHA in the Formspree form settings
   (the honeypot still filters bots).
 - All CSS, JS, and image paths are root-relative (`/styles.css`,
@@ -61,10 +65,11 @@ that touches pricing or offers. None of the three are ever committed.
   produces an unstyled page with a broken logo — not a site bug, a preview
   setup issue. Always serve from inside the repo folder itself (e.g.
   `cd` into it before `python3 -m http.server`).
-- `CLAUDE.md`, `scripts/`, and `partials/` stay in the git repo (visible on
-  GitHub) but are excluded from the published site via `_config.yml`'s
-  Jekyll `exclude:` list — they should never be fetchable at
-  `denvereventdj.com/CLAUDE.md` etc.
+- `CLAUDE.md`, `HANDOFF.md`, `scripts/`, and `partials/` stay in the git
+  repo (visible on GitHub) but are excluded from the published site via
+  `_config.yml`'s Jekyll `exclude:` list — they should never be fetchable
+  at `denvereventdj.com/CLAUDE.md` etc. Add any new repo-only doc to that
+  list.
 
 ## Clean URLs
 
@@ -127,8 +132,8 @@ The content backlog (every planned page, grouped into buckets, with the
 facts already known, photos on hand and the questions Josh still needs to
 answer) lives in `_docs/content-backlog.md` (local-only, gitignored like
 the rest of `_docs/`). When Josh asks "what are the open items?", read it
-first, then `_docs/site-plan.md` and `_docs/content-roadmap.md`. When a
-page ships, move its entry to the "Shipped" section of the backlog.
+first, then `_docs/site-plan.md`. When a page ships, move its entry to
+the "Shipped" section of the backlog and update its "Status snapshot".
 
 ## Publishing from `_inbox`
 
@@ -229,6 +234,26 @@ scores to roughly 86–90 (home) and 88–98 (other pages). Watch a few CI
 runs; flip `categories:performance` from `"warn"` to `"error"` only once
 the homepage clears 90 reliably in CI. On push to
 `main`, a final job submits every sitemap URL to IndexNow.
+
+## Branches, review and going live
+
+- Every change happens on its own branch, never directly on `main`.
+  Batches of work can stack (a later branch built on an earlier one);
+  merging the last branch then ships the whole stack.
+- Before Josh reviews a branch: run the four checks above, then preview
+  the changed pages locally (`python3 -m http.server 8743` from the repo
+  folder) and confirm every photo loads with no console errors.
+- Josh OKs every new page and every merge. Merge with
+  `git merge --no-ff <branch>` so each batch shows as one merge commit,
+  then `git push origin main`.
+- GitHub Pages takes about 2 to 8 minutes to deploy; watch the "pages
+  build and deployment" run in the Actions tab, then load the new URLs
+  on the live site before calling it done.
+- After a deploy that adds pages, give Josh the full URLs to request
+  indexing in Google Search Console (seasonal pages first).
+- `_docs/`, `_inbox/`, `_staging/` and `assets/.originals/` exist only
+  on Josh's Mac. Remind Josh to back them up (see `HANDOFF.md`) after
+  big changes to the backlog or new raw media.
 
 ## Responsive images
 
